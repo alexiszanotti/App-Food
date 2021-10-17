@@ -17,12 +17,45 @@
 //     =====`-.____`.___ \_____/___.-`___.-'=====
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const server = require("./src/app.js");
+const { conn, Diet } = require("./src/db.js");
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
+    Diet.create({
+      name: "Gluten Free",
+    });
+    Diet.create({
+      name: "Ketogenic",
+    });
+    Diet.create({
+      name: "Vegetarian",
+    });
+    Diet.create({
+      name: "Lacto-Vegetarian",
+    });
+    Diet.create({
+      name: "Ovo-Vegetarian",
+    });
+    Diet.create({
+      name: "Vegan",
+    });
+    Diet.create({
+      name: "Pescetarian",
+    });
+    Diet.create({
+      name: "Paleo",
+    });
+    Diet.create({
+      name: "Primal",
+    });
+    Diet.create({
+      name: "Low FODMAP",
+    });
+    Diet.create({
+      name: "Whole30",
+    });
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
   });
 });
