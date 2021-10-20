@@ -24,37 +24,34 @@ const { conn, Diet } = require("./src/db.js");
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
     Diet.create({
-      name: "Gluten Free",
+      name: "gluten free",
     });
     Diet.create({
-      name: "Ketogenic",
+      name: "dairy free",
     });
     Diet.create({
-      name: "Vegetarian",
+      name: "vegetarian",
     });
     Diet.create({
-      name: "Lacto-Vegetarian",
+      name: "lacto ovo vegetarian",
     });
     Diet.create({
-      name: "Ovo-Vegetarian",
+      name: "vegan",
     });
     Diet.create({
-      name: "Vegan",
+      name: "pescatarian",
     });
     Diet.create({
-      name: "Pescetarian",
+      name: "paleolithic",
     });
     Diet.create({
-      name: "Paleo",
+      name: "primal",
     });
     Diet.create({
-      name: "Primal",
+      name: "fodmap friendly",
     });
     Diet.create({
-      name: "Low FODMAP",
-    });
-    Diet.create({
-      name: "Whole30",
+      name: "whole30",
     });
     console.log("%s listening at 3001"); // eslint-disable-line no-console
   });

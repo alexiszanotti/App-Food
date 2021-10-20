@@ -4,15 +4,15 @@ import {
   ORDER_BY_NAME,
   ORDER_BY_RANK,
   SEARCH_BY_NAME,
-  RECIPE_ID,
   GET_DIET,
   POST_RECIPE,
+  GET_DETAILS,
 } from "../Actions/ActionsCreate";
 
 const initialState = {
   recipes: [],
   allRecipes: [],
-  id_Recipe: {},
+  details: [],
   diets: [],
 };
 
@@ -91,10 +91,10 @@ function rootReducer(state = initialState, action) {
         ...state,
         recipes: action.payload,
       };
-    case RECIPE_ID:
+    case GET_DETAILS:
       return {
         ...state,
-        id_Recipe: action.payload,
+        details: action.payload,
       };
     case POST_RECIPE:
       return {

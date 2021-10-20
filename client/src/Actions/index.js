@@ -5,7 +5,7 @@ import {
   ORDER_BY_NAME,
   ORDER_BY_RANK,
   SEARCH_BY_NAME,
-  RECIPE_ID,
+  GET_DETAILS,
   GET_DIET,
 } from "./ActionsCreate";
 
@@ -54,12 +54,12 @@ export function searchByName(name) {
   }
 }
 
-export function recipesId(idRecipe) {
+export function getDetails(idRecipe) {
   try {
     return async function (dispatch) {
       let res = await axios(`http://localhost:3001/recipes/${idRecipe}`);
 
-      return dispatch({ type: RECIPE_ID, payload: res.data });
+      return dispatch({ type: GET_DETAILS, payload: res.data });
     };
   } catch (error) {
     console.log(error);
@@ -80,8 +80,8 @@ export function getDiets() {
 
 export function postRecipe(payload) {
   try {
-    return async function (dispatch) {
-      let res = await axios(`http://localhost:3001/recipe`, payload);
+    return async function () {
+      let res = await axios.post(`http://localhost:3001/recipe`, payload);
 
       return res;
     };

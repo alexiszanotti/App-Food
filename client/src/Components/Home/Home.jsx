@@ -10,7 +10,6 @@ export default function Home({ currentPage, setCurrentPage }) {
   const allRecipes = useSelector(state => state.recipes);
   const dispatch = useDispatch();
 
-  // const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(9);
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;

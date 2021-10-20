@@ -17,9 +17,8 @@ function App() {
           <SearchBar setCurrentPage={setCurrentPage} />
           <Home currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </Route>
-        <Route path='/recipes/:id'>
-          <DetailsRecipe />
-        </Route>
+        <Route path='/recipes/:id' component={DetailsRecipe} />
+
         <Route path='/recipe'>
           <CreateRecipe />
         </Route>

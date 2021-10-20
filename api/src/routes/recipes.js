@@ -6,6 +6,7 @@ router.get("/", async (req, res, next) => {
   try {
     let { name } = req.query;
     let recipesTotal = await getAllInfo();
+
     if (name) {
       let recipesName = await recipesTotal.filter(el =>
         el.Title.toLowerCase().includes(name.toLowerCase())

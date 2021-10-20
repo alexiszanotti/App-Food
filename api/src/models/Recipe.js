@@ -12,24 +12,24 @@ module.exports = sequelize => {
         primaryKey: true,
         allowNull: false,
       },
-      nombre: {
+      Title: {
         //Title
         type: DataTypes.STRING,
         allowNull: false,
       },
-      resumen_receta: {
+      summary: {
         //Summary
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      puntuacion: {
+      score: {
         //
         type: DataTypes.INTEGER,
       },
-      nivel_comida_saludable: {
+      health_score: {
         type: DataTypes.INTEGER,
       },
-      paso_a_paso: {
+      steps: {
         type: DataTypes.TEXT,
       },
       createdInDb: {

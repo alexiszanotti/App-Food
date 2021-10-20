@@ -8,8 +8,7 @@
   justify-content: start;
 }
 
-select,
-input {
+.input-search {
   padding: 5px;
   margin: 30px 10px;
   border: none;

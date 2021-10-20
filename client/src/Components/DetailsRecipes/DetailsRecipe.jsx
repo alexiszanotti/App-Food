@@ -1,27 +1,33 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { recipesId } from "../../Actions/index.js";
+import { getDetails } from "../../Actions/index.js";
+import { useEffect } from "react";
 
-export default function DetailsRecipe() {
+export default function DetailsRecipe(props) {
   const dispatch = useDispatch();
-  const recipe = useSelector(state => state.id_Recipe);
-
-  let { id } = useParams();
 
   useEffect(() => {
-    dispatch(recipesId(id));
-  }, []);
+    dispatch(getDetails(props.match.params.id));
+  }, [dispatch]);
+
+  const recipe = useSelector(state => state.details);
 
   return (
     <>
-      {recipe.length > 0 ? (
-        <div>
-          <h1>Hola</h1>
-        </div>
-      ) : (
-        <p></p>
-      )}
+      <div>
+        <h2>Title: {recipe.title}</h2>
+        <img src={recipe.image} alt='Image not found' />
+        <h5>Dish Type: {recipe.dishTypes}</h5>
+        <h5>Spoonacular Score: {recipe.spoonacularScore}</h5>
+        <h5>HealthScore: {recipe.healthScore}</h5>
+        <h5>Summary: {recipe.summary}</h5>
+        <p>Instructions: {recipe.instructions}</p>
+      </div>
+
+      <Link to='/home'>
+        <button>Go Back</button>
+      </Link>
     </>
   );
 }

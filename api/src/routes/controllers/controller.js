@@ -12,7 +12,7 @@ async function getRecipes() {
       Title: el.title,
       Image: el.image,
       Diet: el.diets,
-      Rank: el.spoonacularScore,
+      score: el.spoonacularScore,
     };
   });
   return apiInfo;
@@ -49,21 +49,23 @@ async function getRecipesById(req, res, next) {
       let id = recipes["id"];
       let title = recipes["title"];
       let image = recipes["image"];
-      let tipoDieta = recipes["dishTypes"];
-      let puntuacion = recipes["spoonacularScore"];
-      let nivelSaludable = recipes["healthScore"];
-      let pasoAPaso = recipes["analyzedInstructions"][0].steps;
-      let resumenPlato = recipes["summary"];
+      let dishTypes = recipes["dishTypes"];
+      let spoonacularScore = recipes["spoonacularScore"];
+      let healthScore = recipes["healthScore"];
+      let instructions = recipes["instructions"];
+      let summary = recipes["summary"];
+      let diets = recipes["diet"];
 
       var detalleReceta = {
-        Id: id,
-        Titulo: title,
-        Imagen: image,
-        Tipo_Dieta: tipoDieta,
-        Puntuacion: puntuacion,
-        Nivel_Saludable: nivelSaludable,
-        paso_a_paso: pasoAPaso,
-        Resumen_Plato: resumenPlato,
+        id,
+        title,
+        image,
+        dishTypes,
+        spoonacularScore,
+        healthScore,
+        instructions,
+        summary,
+        diets,
       };
     }
     res.status(200).send(detalleReceta);
@@ -80,10 +82,10 @@ async function getTypes() {
 
 async function createRecipes(req, res, next) {
   try {
-    let { title, summary, score, health_score, steps, diets, createdInDb } = req.body;
+    const { Title, summary, score, health_score, steps, diet, createdInDb } = req.body;
 
-    let newRecipes = await Recipe.create({
-      title,
+    const newRecipes = await Recipe.create({
+      Title,
       summary,
       score,
       health_score,
@@ -93,12 +95,13 @@ async function createRecipes(req, res, next) {
 
     let dietDb = await Diet.findAll({
       where: {
-        name: diets,
+        name: diet,
       },
     });
 
     newRecipes.addDiet(dietDb);
-    res.send("Recipe created successfully");
+
+    res.send(newRecipes);
   } catch (error) {
     next(error);
   }
