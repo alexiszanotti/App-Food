@@ -1,0 +1,16 @@
+.container-recipes {
+  width: 79%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.recipes {
+  width: 25%;
+}
+
+.title-home {
+  text-align: center;
+}

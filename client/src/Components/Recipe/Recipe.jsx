@@ -1,11 +1,15 @@
 import React from "react";
+import "./Recipe.css";
+import { Link } from "react-router-dom";
 
-export default function Recipe(props) {
+export default function Recipe({ id, title, image, diet }) {
   return (
-    <div>
-      <h3>{props.title}</h3>
-      <h5>{props.diet}</h5>
-      <img src={props.image} alt='Image not found' width='250px' height='200' />
+    <div className='recipe-ind'>
+      <h3 className='title-recipe'>{title}</h3>
+      <Link to={`/recipes/${id}`}>
+        <img className='img-recipe' src={image} alt='Image not found' />{" "}
+      </Link>
+      <h5 className='subtitle-recipe'>{diet}</h5>
     </div>
   );
 }

@@ -1,0 +1,22 @@
+.recipe-ind {
+  border: 2px solid #222;
+  width: 400px;
+  flex-direction: row;
+  text-align: center;
+  margin: 4px;
+}
+
+.img-recipe {
+  width: 250px;
+  height: 200px;
+  margin: 5px;
+}
+
+.title-recipe {
+  margin: 5px;
+}
+
+.btn-detail {
+  margin: 5px;
+  padding: 5px;
+}

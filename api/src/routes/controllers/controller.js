@@ -7,7 +7,13 @@ const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&
 
 async function getRecipes() {
   const apiInfo = (await axios(url)).data.results.map(el => {
-    return { Id: el.id, Title: el.title, Image: el.image, Diet: el.diets };
+    return {
+      Id: el.id,
+      Title: el.title,
+      Image: el.image,
+      Diet: el.diets,
+      Rank: el.spoonacularScore,
+    };
   });
   return apiInfo;
 }
@@ -74,28 +80,20 @@ async function getTypes() {
 
 async function createRecipes(req, res, next) {
   try {
-    let {
-      nombre,
-      resumen_receta,
-      puntuacion,
-      nivel_comida_saludable,
-      paso_a_paso,
-      dieta,
-      createdInDb,
-    } = req.body;
+    let { title, summary, score, health_score, steps, diets, createdInDb } = req.body;
 
     let newRecipes = await Recipe.create({
-      nombre,
-      resumen_receta,
-      puntuacion,
-      nivel_comida_saludable,
-      paso_a_paso,
+      title,
+      summary,
+      score,
+      health_score,
+      steps,
       createdInDb,
     });
 
     let dietDb = await Diet.findAll({
       where: {
-        name: dieta,
+        name: diets,
       },
     });
 

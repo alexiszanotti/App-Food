@@ -1,0 +1,22 @@
+.paginado {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 10px;
+}
+
+.number {
+  border: 2px solid #222;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 1.5vw;
+  box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.6);
+  margin: 5px;
+}
+
+.number:hover {
+  cursor: pointer;
+  background: #222;
+  color: #fff;
+}

@@ -6,7 +6,6 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   try {
     let diets = await getTypes();
-    console.log(diets);
     diets ? res.status(200).send(diets) : res.status(400).send({ error: "Diets Not Found" });
   } catch (error) {
     next(error);
