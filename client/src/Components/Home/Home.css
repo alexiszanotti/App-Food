@@ -13,4 +13,10 @@
 
 .title-home {
   text-align: center;
+  width: 100%;
+
+  color: #fff;
+  padding: 10px;
+  border-radius: 50px;
+  background: #111;
 }

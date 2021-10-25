@@ -6,13 +6,13 @@ module.exports = sequelize => {
   sequelize.define(
     "recipe",
     {
-      Id: {
+      id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1,
         primaryKey: true,
         allowNull: false,
       },
-      Title: {
+      title: {
         //Title
         type: DataTypes.STRING,
         allowNull: false,
@@ -22,20 +22,15 @@ module.exports = sequelize => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      score: {
+      spoonacularScore: {
         //
         type: DataTypes.INTEGER,
       },
-      health_score: {
+      healthScore: {
         type: DataTypes.INTEGER,
       },
-      steps: {
+      analyzedInstructions: {
         type: DataTypes.TEXT,
-      },
-      createdInDb: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
       },
     },
     { timestamps: false }

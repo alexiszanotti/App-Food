@@ -9,7 +9,9 @@ router.get("/", async (req, res, next) => {
 
     if (name) {
       let recipesName = await recipesTotal.filter(el =>
-        el.Title.toLowerCase().includes(name.toLowerCase())
+        el.Title
+          ? el.Title.toLowerCase().includes(name.toLowerCase())
+          : el.title.toLowerCase().includes(name.toLowerCase())
       );
       recipesName.length
         ? res.status(200).send(recipesName)

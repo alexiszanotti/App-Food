@@ -23,35 +23,55 @@ const { conn, Diet } = require("./src/db.js");
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    Diet.create({
-      name: "gluten free",
+    Diet.findOrCreate({
+      where: {
+        name: "gluten free",
+      },
     });
-    Diet.create({
-      name: "dairy free",
+    Diet.findOrCreate({
+      where: {
+        name: "dairy free",
+      },
     });
-    Diet.create({
-      name: "vegetarian",
+    Diet.findOrCreate({
+      where: {
+        name: "vegetarian",
+      },
     });
-    Diet.create({
-      name: "lacto ovo vegetarian",
+    Diet.findOrCreate({
+      where: {
+        name: "lacto ovo vegetarian",
+      },
     });
-    Diet.create({
-      name: "vegan",
+    Diet.findOrCreate({
+      where: {
+        name: "vegan",
+      },
     });
-    Diet.create({
-      name: "pescatarian",
+    Diet.findOrCreate({
+      where: {
+        name: "pescatarian",
+      },
     });
-    Diet.create({
-      name: "paleolithic",
+    Diet.findOrCreate({
+      where: {
+        name: "paleolithic",
+      },
     });
-    Diet.create({
-      name: "primal",
+    Diet.findOrCreate({
+      where: {
+        name: "primal",
+      },
     });
-    Diet.create({
-      name: "fodmap friendly",
+    Diet.findOrCreate({
+      where: {
+        name: "fodmap friendly",
+      },
     });
-    Diet.create({
-      name: "whole30",
+    Diet.findOrCreate({
+      where: {
+        name: "whole30",
+      },
     });
     console.log("%s listening at 3001"); // eslint-disable-line no-console
   });

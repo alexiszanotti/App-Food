@@ -58,7 +58,6 @@ export function getDetails(idRecipe) {
   try {
     return async function (dispatch) {
       let res = await axios(`http://localhost:3001/recipes/${idRecipe}`);
-
       return dispatch({ type: GET_DETAILS, payload: res.data });
     };
   } catch (error) {

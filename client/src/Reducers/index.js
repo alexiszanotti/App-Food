@@ -25,11 +25,13 @@ function rootReducer(state = initialState, action) {
         allRecipes: action.payload,
       };
     case FILTER_BY_DIET:
-      const allRecipes = state.allRecipes;
+      const allRecipe = state.allRecipes;
       const dietFilter =
         action.payload === "all"
-          ? allRecipes
-          : allRecipes.filter(el => el.Diet.includes(action.payload));
+          ? allRecipe
+          : allRecipe.filter(el =>
+              el.diets ? el.diets.includes(action.payload) : el.diets.name === action.payload
+            );
 
       return {
         ...state,
@@ -39,19 +41,19 @@ function rootReducer(state = initialState, action) {
       let arrSorted =
         action.payload === "asc"
           ? state.recipes.sort((a, b) => {
-              if (a.Title > b.Title) {
+              if (a.title > b.title) {
                 return 1;
               }
-              if (b.Title > a.Title) {
+              if (b.title > a.title) {
                 return -1;
               }
               return 0;
             })
           : state.recipes.sort((a, b) => {
-              if (a.Title > b.Title) {
+              if (a.title > b.title) {
                 return -1;
               }
-              if (b.Title > a.Title) {
+              if (b.title > a.title) {
                 return 1;
               }
               return 0;
@@ -62,22 +64,22 @@ function rootReducer(state = initialState, action) {
       };
     case ORDER_BY_RANK:
       let arrSorted1 =
-        action.payload === "rank"
+        action.payload === "score"
           ? state.recipes.sort((a, b) => {
-              if (a.spoonacularScore > b.spoonacularScore) {
-                return 1;
-              }
-              if (b.spoonacularScore > a.spoonacularScore) {
+              if (a.score > b.score) {
                 return -1;
+              }
+              if (b.score > a.score) {
+                return 1;
               }
               return 0;
             })
           : state.recipes.sort((a, b) => {
-              if (a.spoonacularScore > b.spoonacularScore) {
-                return -1;
-              }
-              if (b.spoonacularScore > a.spoonacularScore) {
+              if (a.score > b.score) {
                 return 1;
+              }
+              if (b.score > a.score) {
+                return -1;
               }
               return 0;
             });

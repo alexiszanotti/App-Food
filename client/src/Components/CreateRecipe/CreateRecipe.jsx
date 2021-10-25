@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiets, postRecipe } from "../../Actions/index.js";
+import "./CreateRecipe.css";
 
 function validate(input) {
   let errors = {};
   if (!input.title) errors.title = "Title is required ";
   else if (!input.summary) errors.summary = "Summary es required";
-  else if (input.score.value > 10 || input.score.value < 1)
+  else if (input.spoonacularScore > 10 && input.spoonacularScore < 1)
     errors.score = "The score has to be a number between 1 and 10 ";
-  else if (input.health_score.value > 100 || input.health_score.value < 1)
-    errors.health_score = "The Health Score has to be a number between 1 and 10";
+  else if (input.healthScore > 100 && input.healthScore < 1)
+    errors.health_score = "The Health Score has to be a number between 1 and 100";
   else if (!input.steps) errors.steps = "Steps es required";
 
   return errors;
@@ -18,20 +19,20 @@ function validate(input) {
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();
-  const diets = useSelector(state => state.diets);
+  const Diet = useSelector(state => state.diets);
   const history = useHistory();
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     title: "",
     summary: "",
-    score: "",
-    health_score: "",
-    steps: "",
-    diets: [],
+    spoonacularScore: "",
+    healthScore: "",
+    analyzedInstructions: "",
+    diet: [],
   });
 
-  function handleChange(e) {
+  function handleInputChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -48,7 +49,7 @@ export default function CreateRecipe() {
     if (e.target.checked) {
       setInput({
         ...input,
-        diets: [...input.diets, e.target.value],
+        diet: [...input.diet, e.target.value],
       });
     }
   }
@@ -56,6 +57,7 @@ export default function CreateRecipe() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postRecipe(input));
+    alert("Recipe create succesfuly");
     history.push("/home");
   }
 
@@ -64,57 +66,90 @@ export default function CreateRecipe() {
   }, []);
 
   return (
-    <div>
-      <Link to='/home'>
-        <button>Back</button>
-      </Link>
-      <h1>Create your recipe!</h1>
-      <form onSubmit={e => handleSubmit(e)}>
-        <div>
-          <label> Title:</label>
-          <input type='text' name='title' value={input.title} onChange={e => handleChange(e)} />
-          {errors.title && <p className='error'>{errors.title} </p>}
-        </div>
-        <div>
-          <label> Summary:</label>
-          <input type='text' name='summary' value={input.summary} onChange={e => handleChange(e)} />
-          {errors.summary && <p className='error'>{errors.summary} </p>}
-        </div>
-        <div>
-          <label> Score:</label>
-          <input type='number' name='score' value={input.score} onChange={e => handleChange(e)} />
-          {errors.score && <p className='error'>{errors.score} </p>}
-        </div>
-        <div>
-          <label> Health Score:</label>
-          <input
-            type='number'
-            name='health_score'
-            value={input.health_score}
-            onChange={e => handleChange(e)}
-          />
-          {errors.health_score && <p className='error'>{errors.health_score} </p>}
-        </div>
-        <div>
-          <label> Steps:</label>
-          <input type='text' name='steps' value={input.steps} onChange={e => handleChange(e)} />
-          {errors.steps && <p className='error'>{errors.steps} </p>}
-        </div>
-        <div>
-          <label>Diets: </label>
-          {diets.map(el => {
-            return (
-              <label>
-                <input type='checkbox' onChange={e => handleCheck(e)} value={el.name} />
-                {el.name}
-              </label>
-            );
-          })}
-        </div>
-        <div>
-          <button type='submit'>Create Recipe</button>
-        </div>
-      </form>
+    <div className='container-form'>
+      <div className='form-container'>
+        <Link to='/home'>
+          <button className='btn-create'>Back go home</button>
+        </Link>
+        <h1 className='form-title'>Create your recipe</h1>
+        <form onSubmit={e => handleSubmit(e)}>
+          <div>
+            <input
+              placeholder='Title...'
+              className='form-input'
+              type='text'
+              name='title'
+              value={input.title}
+              onChange={e => handleInputChange(e)}
+            />
+            {errors.title && <p className='error'>{errors.title} </p>}
+          </div>
+          <div>
+            <input
+              placeholder='Summary...'
+              className='form-input'
+              type='text'
+              name='summary'
+              value={input.summary}
+              onChange={e => handleInputChange(e)}
+            />
+            {errors.summary && <p className='error'>{errors.summary} </p>}
+          </div>
+          <div>
+            <input
+              placeholder='Score...'
+              className='form-input'
+              type='number'
+              name='spoonacularScore'
+              value={input.spoonacularScore}
+              onChange={e => handleInputChange(e)}
+            />
+            {errors.spoonacularScore && <p className='error'>{errors.spoonacularScore} </p>}
+          </div>
+          <div>
+            <input
+              placeholder='Health Score...'
+              className='form-input'
+              type='number'
+              name='healthScore'
+              value={input.healthScore}
+              onChange={e => handleInputChange(e)}
+            />
+            {errors.healthScore && <p className='error'>{errors.healthScore} </p>}
+          </div>
+          <div>
+            <input
+              placeholder='Steps...'
+              className='form-input'
+              type='text'
+              name='analyzedInstructions'
+              value={input.analyzedInstructions}
+              onChange={e => handleInputChange(e)}
+            />
+            {errors.analyzedInstructionss && (
+              <p className='error'>{errors.analyzedInstructions} </p>
+            )}
+          </div>
+          <div className='form-checkbox'>
+            {Diet.map(el => {
+              return (
+                <label key={el.id}>
+                  <input
+                    className='form-checkbox'
+                    type='checkbox'
+                    onChange={e => handleCheck(e)}
+                    value={el.name}
+                  />
+                  {el.name}
+                </label>
+              );
+            })}
+          </div>
+          <button className='btn-create' type='submit'>
+            Create Recipe
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

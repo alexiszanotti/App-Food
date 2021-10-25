@@ -12,11 +12,10 @@ import {
   getDiets,
 } from "../../Actions/index.js";
 
-export default function SearchBar({ setCurrentPage }) {
+export default function SearchBar({ setCurrentPage, setOrden }) {
   const dispatch = useDispatch();
   const diet = useSelector(state => state.diets);
 
-  const [orden, setOrden] = useState("");
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -75,19 +74,24 @@ export default function SearchBar({ setCurrentPage }) {
         </button>
       </form>
       <select className='input-search' onChange={e => handleFilterDiet(e)}>
+        <option value='all'>All</option>
         {diet.map(el => {
-          return <option value={el.name}>{el.name}</option>;
+          return (
+            <option key={el.id} value={el.name}>
+              {el.name}
+            </option>
+          );
         })}
       </select>
 
       <select className='input-search' onChange={e => handleSort(e)}>
-        <option>Order by... </option>
-        <option value='asc'>Ascending </option>
-        <option value='des'>Descending</option>
+        <option value='all'>Order by </option>
+        <option value='asc'>A - Z </option>
+        <option value='des'>Z - A</option>
       </select>
       <select className='input-search' onChange={e => handleRank(e)}>
-        <option value=''>Order by</option>
-        <option value='rank'>Rank</option>
+        <option value='all'>Order by</option>
+        <option value='score'>Score</option>
       </select>
 
       <Link className='link' to='/recipe'>

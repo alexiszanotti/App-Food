@@ -1,20 +1,20 @@
 const axios = require("axios");
 const { apiKey } = require("../../utils/config.js");
 const { Recipe, Diet } = require("../../db.js");
-const { Op } = require("sequelize");
 
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100&addRecipeInformation=true`;
 
 async function getRecipes() {
   const apiInfo = (await axios(url)).data.results.map(el => {
     return {
-      Id: el.id,
-      Title: el.title,
-      Image: el.image,
-      Diet: el.diets,
+      id: el.id,
+      title: el.title,
+      image: el.image,
+      diets: el.diets,
       score: el.spoonacularScore,
     };
   });
+
   return apiInfo;
 }
 
@@ -41,56 +41,69 @@ async function getRecipesById(req, res, next) {
   const { idRecipe } = req.params;
 
   try {
-    let recipes = (
-      await axios(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${apiKey}`)
-    ).data;
+    if (isNaN(idRecipe)) {
+      let recipes = await Recipe.findAll({
+        where: {
+          id: idRecipe,
+        },
+        include: {
+          model: Diet,
+          attributes: ["name"],
+          through: {
+            attributes: [],
+          },
+        },
+      });
 
-    if (idRecipe) {
-      let id = recipes["id"];
-      let title = recipes["title"];
-      let image = recipes["image"];
-      let dishTypes = recipes["dishTypes"];
-      let spoonacularScore = recipes["spoonacularScore"];
-      let healthScore = recipes["healthScore"];
-      let instructions = recipes["instructions"];
-      let summary = recipes["summary"];
-      let diets = recipes["diet"];
+      res.status(200).json(recipes[0]);
+    } else {
+      let recipes = (
+        await axios(`https://api.spoonacular.com/recipes/${idRecipe}/information?apiKey=${apiKey}`)
+      ).data;
 
-      var detalleReceta = {
-        id,
-        title,
-        image,
-        dishTypes,
-        spoonacularScore,
-        healthScore,
-        instructions,
-        summary,
+      let diets = [];
+      for (let i = 0; i < recipes.diets.length; i++) {
+        diets.push({ name: recipes.diets[i] });
+      }
+
+      let newRecipes = {
+        id: recipes["id"],
+        title: recipes["title"],
+        image: recipes["image"],
+        summary: recipes["summary"],
+        instructions: recipes["instructions"],
+        dishTypes: recipes["dishTypes"],
+        spoonacularScore: recipes["spoonacularScore"],
+        healthScore: recipes["healthScore"],
         diets,
       };
+      res.status(200).json(newRecipes);
     }
-    res.status(200).send(detalleReceta);
   } catch (error) {
     next(error);
   }
 }
 
 async function getTypes() {
-  let diets = await Diet.findAll().then(res => res);
+  try {
+    let diets = await Diet.findAll().then(res => res);
 
-  return diets;
+    return diets;
+  } catch (error) {
+    next(error);
+  }
 }
 
 async function createRecipes(req, res, next) {
   try {
-    const { Title, summary, score, health_score, steps, diet, createdInDb } = req.body;
+    const { title, summary, spoonacularScore, healthScore, analyzedInstructions, diet } = req.body;
 
     const newRecipes = await Recipe.create({
-      Title,
+      title,
       summary,
-      score,
-      health_score,
-      steps,
-      createdInDb,
+      spoonacularScore,
+      healthScore,
+      analyzedInstructions,
     });
 
     let dietDb = await Diet.findAll({
@@ -101,7 +114,7 @@ async function createRecipes(req, res, next) {
 
     newRecipes.addDiet(dietDb);
 
-    res.send(newRecipes);
+    res.send("Recipe successfully created");
   } catch (error) {
     next(error);
   }

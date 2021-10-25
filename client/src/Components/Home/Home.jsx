@@ -9,7 +9,6 @@ import Paginado from "../Paginado/Paginado";
 export default function Home({ currentPage, setCurrentPage }) {
   const allRecipes = useSelector(state => state.recipes);
   const dispatch = useDispatch();
-
   const [recipesPerPage, setRecipesPerPage] = useState(9);
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
@@ -23,9 +22,10 @@ export default function Home({ currentPage, setCurrentPage }) {
     dispatch(getRecipes());
     dispatch(filterByDiet());
   }, [dispatch]);
+
   return (
     <>
-      <h1 className='title-home'>Recipe List</h1>
+      <h1 className='title-home'>Recipes</h1>
 
       <Paginado
         recipesPerPage={recipesPerPage}
@@ -36,11 +36,11 @@ export default function Home({ currentPage, setCurrentPage }) {
         {currentRecipes?.map(el => {
           return (
             <Recipe
-              key={el.Id}
-              id={el.Id}
-              image={el.Image}
-              title={el.Title}
-              diet={`Diet:  ${el.Diet}`}
+              key={el.id}
+              id={el.id}
+              image={el.image}
+              title={el.title}
+              diet={`Diet: ${el.diets.map(el => el.name || el)}`}
             />
           );
         })}
