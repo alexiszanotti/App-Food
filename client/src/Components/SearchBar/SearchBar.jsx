@@ -90,8 +90,9 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
         <option value='des'>Z - A</option>
       </select>
       <select className='input-search' onChange={e => handleRank(e)}>
-        <option value='all'>Order by</option>
-        <option value='score'>Score</option>
+        <option value=''>Order by </option>
+        <option value='all'>Score -</option>
+        <option value='score'>Score +</option>
       </select>
 
       <Link className='link' to='/recipe'>

@@ -8,7 +8,7 @@ export default function Recipe({ id, title, image, diet }) {
     <div className='recipe-ind'>
       <div className='img-container'>
         <Link to={`/recipes/${id}`}>
-          <img className='img-recipe' src={image ? image : Imagen} alt='Image not found' />
+          <img className='img-recipe' src={image ? image : Imagen} alt='Img not found' />
         </Link>
       </div>
       <div className='text-container'>

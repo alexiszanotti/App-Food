@@ -8,11 +8,11 @@ function validate(input) {
   let errors = {};
   if (!input.title) errors.title = "Title is required ";
   else if (!input.summary) errors.summary = "Summary es required";
-  else if (input.spoonacularScore > 10 && input.spoonacularScore < 1)
-    errors.score = "The score has to be a number between 1 and 10 ";
-  else if (input.healthScore > 100 && input.healthScore < 1)
-    errors.health_score = "The Health Score has to be a number between 1 and 100";
-  else if (!input.steps) errors.steps = "Steps es required";
+  else if (input.spoonacularScore < 1 || input.spoonacularScore > 10)
+    errors.spoonacularScore = "The score has to be a number between 1 and 10 ";
+  else if (input.healthScore < 1 || input.healthScore > 100)
+    errors.healthScore = "The Health Score has to be a number between 1 and 100";
+  else if (!input.instructions) errors.instructions = "Instructions es required";
 
   return errors;
 }
@@ -28,7 +28,7 @@ export default function CreateRecipe() {
     summary: "",
     spoonacularScore: "",
     healthScore: "",
-    analyzedInstructions: "",
+    instructions: "",
     diet: [],
   });
 
@@ -56,9 +56,13 @@ export default function CreateRecipe() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postRecipe(input));
-    alert("Recipe create succesfuly");
-    history.push("/home");
+    if (Object.keys(errors).length === 0) {
+      dispatch(postRecipe(input));
+      alert("Recipe create succesfuly");
+      history.push("/home");
+    } else {
+      alert("There are empty fields!");
+    }
   }
 
   useEffect(() => {
@@ -122,13 +126,11 @@ export default function CreateRecipe() {
               placeholder='Steps...'
               className='form-input'
               type='text'
-              name='analyzedInstructions'
-              value={input.analyzedInstructions}
+              name='instructions'
+              value={input.instructions}
               onChange={e => handleInputChange(e)}
             />
-            {errors.analyzedInstructionss && (
-              <p className='error'>{errors.analyzedInstructions} </p>
-            )}
+            {errors.instructions && <p className='error'>{errors.instructions} </p>}
           </div>
           <div className='form-checkbox'>
             {Diet.map(el => {

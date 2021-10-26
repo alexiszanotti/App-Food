@@ -9,7 +9,6 @@ import Imagen from "../../Public/ImgLandingpage.jpg";
 export default function DetailsRecipe(props) {
   const recipe = useSelector(state => state.details);
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getDetails(props.match.params.id));
   }, [dispatch]);
@@ -32,14 +31,14 @@ export default function DetailsRecipe(props) {
         <div
           className='detail-par'
           dangerouslySetInnerHTML={{
-            __html: `<b>Instruction:</b>  ${recipe.instructions ? recipe.instructions : " "}`,
+            __html: `<b>Instruction:</b>  ${recipe.instructions}`,
           }}
         />
         <div className='subtitle-cont'>
           <h5 className='detail-subtitle'>Dish Type: {recipe.dishTypes}</h5>
           <h5 className='detail-subtitle'>Spoonacular Score: {recipe.spoonacularScore}</h5>
           <h5 className='detail-subtitle'>HealthScore: {recipe.healthScore}</h5>
-          <h5 className='detail-subtitle'>Diet :{recipe.diets?.map(el => el.name + " ")}</h5>
+          <h5 className='detail-subtitle'>Diet: {recipe.diets?.map(el => el.name + " ")}</h5>
         </div>
         <Link to='/home'>
           <button className='btn-back'>Go Back</button>

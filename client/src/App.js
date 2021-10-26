@@ -8,6 +8,7 @@ import DetailsRecipe from "./Components/DetailsRecipes/DetailsRecipe";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 
 function App() {
+  //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
   const [orden, setOrden] = useState("");
   return (

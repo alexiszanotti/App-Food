@@ -96,14 +96,14 @@ async function getTypes() {
 
 async function createRecipes(req, res, next) {
   try {
-    const { title, summary, spoonacularScore, healthScore, analyzedInstructions, diet } = req.body;
+    const { title, summary, spoonacularScore, healthScore, instructions, diet } = req.body;
 
     const newRecipes = await Recipe.create({
       title,
       summary,
       spoonacularScore,
       healthScore,
-      analyzedInstructions,
+      instructions,
     });
 
     let dietDb = await Diet.findAll({

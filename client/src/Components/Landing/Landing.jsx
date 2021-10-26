@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getRecipes } from "../../Actions";
 import "./Landing.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Landing() {
   const dispatch = useDispatch();
-  const allRecipes = useSelector(state => state.recipes);
+
   useEffect(() => {
     dispatch(getRecipes());
   }, []);
