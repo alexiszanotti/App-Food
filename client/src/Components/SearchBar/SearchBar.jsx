@@ -34,13 +34,13 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
   function handleSort(e) {
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrden(e.target.value);
   }
 
   function handleRank(e) {
     dispatch(orderByRank(e.target.value));
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
+    setOrden(e.target.value);
   }
 
   function handleInputChange(e) {

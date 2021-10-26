@@ -84,7 +84,7 @@ export default function CreateRecipe() {
               type='text'
               name='title'
               value={input.title}
-              onChange={e => handleInputChange(e)}
+              onChange={handleInputChange}
             />
             {errors.title && <p className='error'>{errors.title} </p>}
           </div>
@@ -95,7 +95,7 @@ export default function CreateRecipe() {
               type='text'
               name='summary'
               value={input.summary}
-              onChange={e => handleInputChange(e)}
+              onChange={handleInputChange}
             />
             {errors.summary && <p className='error'>{errors.summary} </p>}
           </div>
@@ -106,7 +106,7 @@ export default function CreateRecipe() {
               type='number'
               name='spoonacularScore'
               value={input.spoonacularScore}
-              onChange={e => handleInputChange(e)}
+              onChange={handleInputChange}
             />
             {errors.spoonacularScore && <p className='error'>{errors.spoonacularScore} </p>}
           </div>
@@ -117,7 +117,7 @@ export default function CreateRecipe() {
               type='number'
               name='healthScore'
               value={input.healthScore}
-              onChange={e => handleInputChange(e)}
+              onChange={handleInputChange}
             />
             {errors.healthScore && <p className='error'>{errors.healthScore} </p>}
           </div>
@@ -128,7 +128,7 @@ export default function CreateRecipe() {
               type='text'
               name='instructions'
               value={input.instructions}
-              onChange={e => handleInputChange(e)}
+              onChange={handleInputChange}
             />
             {errors.instructions && <p className='error'>{errors.instructions} </p>}
           </div>
