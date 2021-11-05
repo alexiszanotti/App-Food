@@ -2,23 +2,25 @@
   display: flex;
   justify-content: center;
   list-style: none;
-  margin: 10px;
-  margin-left: 18%;
+  margin-top: 100px;
 }
 
 .number {
-  border: 2px solid #222;
+  border: 2px solid #b38867;
   width: 30px;
   height: 30px;
   text-align: center;
-  font-size: 1.5vw;
-  box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.6);
+  font-size: 1.8vw;
+  box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.9);
   margin: 10px;
-  background: #fff;
+  background: #b38867;
+  border-radius: 10px;
+  color: #fff;
+  padding: 3px;
 }
 
 .number:hover {
   cursor: pointer;
-  background: #222;
-  color: #a63d40;
+  background: #b38867;
+  color: #111;
 }

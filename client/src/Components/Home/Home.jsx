@@ -24,8 +24,10 @@ export default function Home({ currentPage, setCurrentPage }) {
   }, [dispatch]);
 
   return (
-    <>
-      <h1 className='title-home'>Recipes</h1>
+    <div className='home-container'>
+      <h1 className='title-home'>
+        <i class='fas fa-utensils'></i> Recipes
+      </h1>
 
       <Paginado
         recipesPerPage={recipesPerPage}
@@ -40,11 +42,13 @@ export default function Home({ currentPage, setCurrentPage }) {
               id={el.id}
               image={el.image}
               title={el.title}
+              readyInMinutes={el.readyInMinutes}
+              servings={el.servings}
               diet={`Diet: ${el.diets.map(el => el.name || el)}`}
             />
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

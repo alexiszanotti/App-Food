@@ -20,7 +20,7 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
 
   useEffect(() => {
     dispatch(getDiets());
-  }, []);
+  }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault();
@@ -56,11 +56,12 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
   return (
     <div className='container-nav'>
       <button
+        className='button-search'
         onClick={e => {
           handleClick(e);
         }}
       >
-        Reload Recipes
+        <i class='fas fa-sync-alt'></i>
       </button>
       <form onClick={e => handleSubmit(e)}>
         <input
@@ -69,12 +70,13 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
           type='text'
           placeholder='Search recipe...'
         />
-        <button type='submit' className='btn-search'>
-          Search
+
+        <button type='submit' className='button-search'>
+          <i class='fas fa-search'></i>
         </button>
       </form>
       <select className='input-search' onChange={e => handleFilterDiet(e)}>
-        <option value='all'>All</option>
+        <option value='all'>Diets</option>
         {diet.map(el => {
           return (
             <option key={el.id} value={el.name}>
@@ -96,7 +98,7 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
       </select>
 
       <Link className='link' to='/recipe'>
-        Create Recipe
+        Create your recipe
       </Link>
     </div>
   );

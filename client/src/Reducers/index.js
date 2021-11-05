@@ -26,16 +26,24 @@ function rootReducer(state = initialState, action) {
       };
     case FILTER_BY_DIET:
       const allRecipe = state.allRecipes;
-      const dietFilter =
+      var arregloRecetas = [];
+      var dietFilter =
         action.payload === "all"
           ? allRecipe
-          : allRecipe.filter(el =>
-              el.diets ? el.diets.includes(action.payload) : el.diets.name === action.payload
-            );
+          : allRecipe.filter(el => {
+              if (el.diets.includes(action.payload)) return el;
+              if (typeof el.diets[0] === "object") {
+                el.diets.forEach(elem => {
+                  if (elem.name === action.payload) {
+                    arregloRecetas.push(el);
+                  }
+                });
+              }
+            });
 
       return {
         ...state,
-        recipes: dietFilter,
+        recipes: dietFilter.concat(arregloRecetas),
       };
     case ORDER_BY_NAME:
       let arrSorted =

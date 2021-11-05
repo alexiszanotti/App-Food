@@ -16,15 +16,11 @@ export default function DetailsRecipe(props) {
   return (
     <div className='d-container'>
       <div className='detail-container'>
-        <h2 className='detail-title'> {recipe.title}</h2>
-        <img
-          className='detail-img'
-          src={recipe.image ? recipe.image : Imagen}
-          alt='Image not found'
-        />
-
+        <div className='title-cont'>
+          <h2 className='detail-title'> {recipe.title}</h2>
+        </div>
         <div
-          className='detail-par'
+          className='detail-sum'
           dangerouslySetInnerHTML={{ __html: `<b>Summary:</b> ${recipe.summary}` }}
         />
 

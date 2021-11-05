@@ -9,8 +9,7 @@
 }
 
 .form-title {
-  margin-top: -40px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Cabin", sans-serif;
 }
 
 .form-container {
@@ -22,7 +21,7 @@
   width: 45%;
   height: 500px;
   border-radius: 20px;
-  background-color: #a63d40;
+  background-color: #ddbc95;
   box-shadow: 10px 10px 2px 0px rgba(0, 0, 0, 0.6);
 }
 
@@ -50,9 +49,20 @@
   text-align: center;
   border-radius: 20px;
   padding: 10px;
-  margin-top: 10px;
+  margin: 15px;
+  font-size: 1em;
+  font-family: "Cabin", sans-serif;
+  background-color: #b38867;
+  border: 1px solid #b38867;
+}
+.btn-create:hover {
+  cursor: pointer;
+  background-color: #111;
+  color: #b38867;
+  border: 1px solid #111;
 }
 
 .error {
-  color: #fff;
+  color: rgb(255, 0, 0);
+  font-family: "Cabin", sans-serif;
 }

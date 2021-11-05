@@ -1,30 +1,34 @@
 .d-container {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
+  background: url(../../Public/imgDetail.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
   box-sizing: border-box;
 }
 
 .detail-container {
-  width: 900%;
-  height: 450px;
+  width: 50%;
+  height: 90vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-.detail-img {
-  width: 180px;
-  height: 180px;
-  float: right;
-}
-
-.detail-title {
-  margin: 0px 10px;
-  background-color: #111;
+.title-cont {
   width: 100%;
-  color: #a63d40;
-  margin-left: -2px;
-  padding: 6px;
+  position: relative;
+  z-index: 2;
+  background-color: #b38867;
+  margin: 20px;
+}
+.detail-title {
+  width: 100%;
+  color: #fff;
+  padding: 15px;
+  z-index: 2;
+  position: relative;
 }
 
 .subtitle-cont {
@@ -32,24 +36,30 @@
   justify-content: space-around;
   align-items: center;
   margin: 10px 0px;
-  background: #111;
-  color: #a63d40;
-  width: 98.8%;
+  background: #b38867;
+  color: #fff;
+  width: 100%;
   padding: 10px;
   letter-spacing: 1px;
   font-size: 3vh;
   margin-left: -2px;
+  z-index: 2;
+  position: relative;
 }
 
 .detail-subtitle {
   letter-spacing: 1px;
   font-size: 2.5vh;
-  font-family: Arial, Helvetica, sans-serif !important;
+  font-family: "Orienta", sans-serif;
+  z-index: 2;
+  position: relative;
 }
 .detail-par {
   margin: 5px;
   text-align: left;
   margin-left: 15px;
+  z-index: 2;
+  position: relative;
 }
 .btn-back {
   padding: 15px;
