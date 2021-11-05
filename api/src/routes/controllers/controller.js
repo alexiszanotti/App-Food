@@ -5,36 +5,50 @@ const { Recipe, Diet } = require("../../db.js");
 const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&number=100&addRecipeInformation=true`;
 
 async function getRecipes() {
-  const apiInfo = (await axios(url)).data.results.map(el => {
-    return {
-      id: el.id,
-      title: el.title,
-      image: el.image,
-      diets: el.diets,
-      score: el.spoonacularScore,
-    };
-  });
+  try {
+    const apiInfo = (await axios(url)).data.results.map(el => {
+      return {
+        id: el.id,
+        title: el.title,
+        image: el.image,
+        diets: el.diets,
+        score: el.spoonacularScore,
+        readyInMinutes: el.readyInMinutes,
+        servings: el.servings,
+      };
+    });
 
-  return apiInfo;
+    return apiInfo;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function getDbInfo() {
-  return await Recipe.findAll({
-    include: {
-      model: Diet,
-      attributes: ["name"],
-      through: {
-        attributes: [],
+  try {
+    return await Recipe.findAll({
+      include: {
+        model: Diet,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
       },
-    },
-  });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function getAllInfo() {
-  const apiInfo = await getRecipes();
-  const dbInfo = await getDbInfo();
-  const infoTotal = apiInfo.concat(dbInfo);
-  return infoTotal;
+  try {
+    const apiInfo = await getRecipes();
+    const dbInfo = await getDbInfo();
+    const infoTotal = apiInfo.concat(dbInfo);
+    return infoTotal;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function getRecipesById(req, res, next) {
