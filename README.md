@@ -1,32 +1,13 @@
 
 
-## Objetivos del Proyecto
+## Objetivo del Proyecto
 
 - La idea general era crear una aplicación en la cual se puedan ver distintas recetas de comida junto con información relevante de las mismas utilizando la api externa [spoonacular](https://spoonacular.com/food-api) y a partir de ella poder, entre otras cosas:
 
   - Buscar recetas
-  - Filtrarlos / Ordenarlos
+  - Filtrarlas / Ordenarlas
   - Crear nuevas recetas propias
 
-
-
-
-## Como correr el proyecto
-
-
-En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
-
-```
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
-```
-
-Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
-
-Adicionalmente será necesario que creen desde psql una base de datos llamada `food`
-
-El contenido de `client` fue creado usando: Create React App.
 
 
 #### Tecnologías que se implementaron:
@@ -34,6 +15,7 @@ El contenido de `client` fue creado usando: Create React App.
 - [ ] Redux
 - [ ] Express
 - [ ] Sequelize - Postgres
+- [ ] Css Puro
 
 #### Features
 
@@ -95,7 +77,7 @@ Se desarrolló un servidor en Node/Express con las siguientes rutas:
 
 - [ ] __GET /recipes?name="..."__:
   - Obtiene un listado de las recetas que contengan la palabra ingresada como query parameter
-  - Si no existe ninguna receta mostrar un mensaje adecuado
+  - Si no existe ninguna receta muestra un mensaje adecuado
 - [ ] __GET /recipes/{idReceta}__:
   - Obtiene el detalle de una receta en particular
   - Trae solo los datos pedidos en la ruta de detalle de receta
@@ -105,4 +87,21 @@ Se desarrolló un servidor en Node/Express con las siguientes rutas:
 - [ ] __POST /recipe__:
   - Recibe los datos recolectados desde un formulario controlado de la ruta de creación de recetas por body
   - Crea una receta en la base de datos
+
+## Como correr el proyecto
+
+
+En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
+
+```
+DB_USER=usuariodepostgres
+DB_PASSWORD=passwordDePostgres
+DB_HOST=localhost
+```
+
+Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).
+
+Adicionalmente será necesario que creen desde psql una base de datos llamada `food`
+
+El contenido de `client` fue creado usando: Create React App.
 
