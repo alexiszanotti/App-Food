@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetails } from "../../Actions/index.js";
 import { useEffect } from "react";
 import "./DetailsRecipe.css";
-import Imagen from "../../Public/ImgLandingpage.jpg";
 
 export default function DetailsRecipe(props) {
   const recipe = useSelector(state => state.details);
@@ -31,10 +30,16 @@ export default function DetailsRecipe(props) {
           }}
         />
         <div className='subtitle-cont'>
-          <h5 className='detail-subtitle'>Dish Type: {recipe.dishTypes}</h5>
-          <h5 className='detail-subtitle'>Spoonacular Score: {recipe.spoonacularScore}</h5>
-          <h5 className='detail-subtitle'>HealthScore: {recipe.healthScore}</h5>
-          <h5 className='detail-subtitle'>Diet: {recipe.diets?.map(el => el.name + " ")}</h5>
+          <h5 className='detail-subtitle'>
+            <i className='icon' class='fas fa-utensils'></i> {recipe.dishTypes + "  "}
+          </h5>
+          <h5 className='detail-subtitle'>
+            <i className='icon' class='fas fa-heartbeat'></i> {recipe.healthScore + " Pts."}
+          </h5>
+          <h5 className='detail-subtitle'>
+            <i className='icon' class='fas fa-balance-scale'></i>{" "}
+            {recipe.diets?.map(el => el.name + " ")}
+          </h5>
         </div>
         <Link to='/home'>
           <button className='btn-back'>Go Back</button>

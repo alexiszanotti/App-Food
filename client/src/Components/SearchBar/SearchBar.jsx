@@ -20,7 +20,8 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
 
   useEffect(() => {
     dispatch(getDiets());
-  }, [dispatch]);
+    dispatch(searchByName(name));
+  }, [dispatch, name]);
 
   function handleClick(e) {
     e.preventDefault();
