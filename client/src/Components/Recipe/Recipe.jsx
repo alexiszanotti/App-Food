@@ -1,7 +1,7 @@
 import React from "react";
 import "./Recipe.css";
 import { Link } from "react-router-dom";
-import Imagen from "../../Public/ImgLandingpage.jpg";
+import Imagen from "../../Public/alimentos.jpg";
 
 export default function Recipe({ id, title, image, readyInMinutes, servings }) {
   return (

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDiets, postRecipe } from "../../Actions/index.js";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import "./CreateRecipe.css";
 
+const MySwal = withReactContent(Swal);
 function validate(input) {
   let errors = {};
   if (!input.title) errors.title = "Title is required ";
@@ -58,10 +61,24 @@ export default function CreateRecipe() {
     e.preventDefault();
     if (Object.keys(errors).length === 0) {
       dispatch(postRecipe(input));
-      alert("Recipe create succesfuly");
+      MySwal.fire({
+        title: <p>Hello World</p>,
+        footer: "Copyright 2018",
+        didOpen: () => {
+          MySwal.clickConfirm();
+        },
+      }).then(() => {
+        return MySwal.fire("Recipe successfully created!", "", "success");
+      });
       history.push("/home");
     } else {
-      alert("There are empty fields!");
+      MySwal.fire({
+        didOpen: () => {
+          MySwal.clickConfirm();
+        },
+      }).then(() => {
+        return MySwal.fire("UPS!", "There can be no empty fields! ", "error");
+      });
     }
   }
 

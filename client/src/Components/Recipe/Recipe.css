@@ -16,15 +16,15 @@
 
 .img-recipe {
   width: 350px;
-  height: 200px;
+  height: 160px;
 }
 
 .title-recipe {
   text-align: center;
-  font-size: 1.3vw;
-  font-family: "Orienta", sans-serif;
+  font-size: 1em;
+  font-family: "Montserrat", sans-serif;
   color: #111;
-  width: 100%;
+  width: 95%;
   padding: 15px;
   margin-bottom: -15px;
   margin-left: -7px;
@@ -43,6 +43,7 @@
   color: #111;
   text-decoration: none;
   letter-spacing: 2px;
+  margin-top: 33px;
 }
 a {
   text-decoration: none;
@@ -58,5 +59,9 @@ a {
   line-height: 1.5em;
   letter-spacing: 1px;
   color: #111;
-  margin-top: 10px;
+  margin: 10px;
+}
+
+.subtitle-recipe > i {
+  margin: 5px;
 }
