@@ -1,9 +1,9 @@
 .recipe-ind {
-  width: 25%;
+  width: 24%;
   flex-direction: column;
   text-align: center;
   margin: 4px;
-  height: 340px;
+  height: 320px;
   margin: 10px;
   overflow: hidden;
   justify-content: center;
@@ -11,11 +11,11 @@
   border-radius: 20px;
 }
 .img-container {
-  width: 350px;
+  width: 300px;
 }
 
 .img-recipe {
-  width: 350px;
+  width: 324px;
   height: 160px;
 }
 
@@ -24,26 +24,28 @@
   font-size: 1em;
   font-family: "Montserrat", sans-serif;
   color: #111;
-  width: 95%;
-  padding: 15px;
+  width: 100%;
+  padding: 10px;
   margin-bottom: -15px;
   margin-left: -7px;
-  margin-top: -7px;
+  margin-top: -4px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   background-color: transparent;
   z-index: 1;
+  background-color: #ddbc95;
+  font-weight: bold;
 }
 
 .cook {
-  background-color: #ddbc95;
+  background-color: #b38867;
   width: 100%;
   padding: 10px;
   color: #111;
   text-decoration: none;
   letter-spacing: 2px;
-  margin-top: 33px;
+  margin-top: 14px;
 }
 a {
   text-decoration: none;
@@ -63,5 +65,5 @@ a {
 }
 
 .subtitle-recipe > i {
-  margin: 5px;
+  margin-top: 10px;
 }
