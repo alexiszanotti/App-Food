@@ -1,5 +1,4 @@
 {
-  "homepage": "https://alexiszanotti.github.io/App-Recetas-Saludables ",
   "name": "api",
   "version": "1.0.0",
   "description": "",
@@ -30,7 +29,6 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
-    "gh-pages": "^3.2.3",
     "nodemon": "^2.0.6"
   }
 }
