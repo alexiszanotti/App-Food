@@ -21,7 +21,7 @@
 
 
 __Pagina inicial__: Una landing page con
-- [ ] Una imagen de fondo representativa al proyecto
+- [ ] Un video de fondo representativo al proyecto
 - [ ] Botón para ingresar al home (`Ruta principal`)
 
 __Ruta principal__: Contiene
