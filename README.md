@@ -21,7 +21,7 @@
 
 
 __Pagina inicial__: Una landing page con
-- [ ] Una imagen de fondo representativa al proyecto
+- [ ] Un video de fondo representativo al proyecto
 - [ ] Botón para ingresar al home (`Ruta principal`)
 
 __Ruta principal__: Contiene
@@ -104,4 +104,9 @@ Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credencial
 Adicionalmente será necesario que creen desde psql una base de datos llamada `food`
 
 El contenido de `client` fue creado usando: Create React App.
+
+
+![Api-Food](https://user-images.githubusercontent.com/84089185/146578294-bebdafc2-796b-4be7-b433-1d289a4bcd30.png)
+![Api-Food1](https://user-images.githubusercontent.com/84089185/146578307-9579a835-7b6c-48e0-b6b3-62f2c60e1299.png)
+![Api-Food2](https://user-images.githubusercontent.com/84089185/146578319-4b85c979-2939-435a-a8ac-cb4e71cee679.png)
 
