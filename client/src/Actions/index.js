@@ -12,7 +12,7 @@ import {
 export function getRecipes() {
   return async function (dispatch) {
     try {
-      let res = await axios("http://localhost:3001/recipes");
+      let res = await axios("/recipes");
 
       return dispatch({ type: GET_RECIPES, payload: res.data });
     } catch (error) {
@@ -45,7 +45,7 @@ export function orderByRank(payload) {
 export function searchByName(name) {
   try {
     return async function (dispatch) {
-      let res = await axios(`http://localhost:3001/recipes?name=${name}`);
+      let res = await axios(`/recipes?name=${name}`);
 
       return dispatch({ type: SEARCH_BY_NAME, payload: res.data });
     };
@@ -57,7 +57,7 @@ export function searchByName(name) {
 export function getDetails(idRecipe) {
   try {
     return async function (dispatch) {
-      let res = await axios(`http://localhost:3001/recipes/${idRecipe}`);
+      let res = await axios(`/recipes/${idRecipe}`);
       return dispatch({ type: GET_DETAILS, payload: res.data });
     };
   } catch (error) {
@@ -68,7 +68,7 @@ export function getDetails(idRecipe) {
 export function getDiets() {
   try {
     return async function (dispatch) {
-      let res = await axios(`http://localhost:3001/types`);
+      let res = await axios(`/types`);
 
       return dispatch({ type: GET_DIET, payload: res.data });
     };
@@ -80,7 +80,7 @@ export function getDiets() {
 export function postRecipe(payload) {
   try {
     return async function () {
-      let res = await axios.post(`http://localhost:3001/recipe`, payload);
+      let res = await axios.post(`/recipe`, payload);
 
       return res;
     };
