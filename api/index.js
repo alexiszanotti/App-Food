@@ -5,7 +5,7 @@ dotenv.config();
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(process.env.PORT, async () => {
+  server.listen(process.env.PORT || 3001, async () => {
     Diet.findOrCreate({
       where: {
         name: "gluten free",
@@ -56,6 +56,6 @@ conn.sync({ force: true }).then(() => {
         name: "whole30",
       },
     });
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
+    console.log("listening at 3001"); // eslint-disable-line no-console
   });
 });
