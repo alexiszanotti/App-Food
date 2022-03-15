@@ -1,8 +1,7 @@
 {
   "env": {
     "node": true,
-    "es6": true,
-    "mocha": true
+    "es6": true
   },
   "extends": "airbnb/base",
   "settings": {
@@ -13,8 +12,8 @@
     }
   },
   "rules": {
-     "no-underscore-dangle": 0,
-     "no-param-reassign": 0,
-     "import/no-unresolved": 0
-   }
+    "no-underscore-dangle": 0,
+    "no-param-reassign": 0,
+    "import/no-unresolved": 0
+  }
 }
