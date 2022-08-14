@@ -3,35 +3,35 @@ import Recipe from "../Recipe/Recipe.jsx";
 import "./Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { getRecipes, filterByDiet } from "../../Actions/index.js";
+import { fetchAllRecipes, fetchDiets } from "../../redux/recipesSlice";
 import Paginado from "../Paginado/Paginado";
 
 export default function Home({ currentPage, setCurrentPage }) {
-  const allRecipes = useSelector(state => state.recipes);
+  const allRecipes = useSelector(state => state.recipeReducer.recipes);
   const dispatch = useDispatch();
   const [recipesPerPage, setRecipesPerPage] = useState(9);
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-  const currentRecipes = allRecipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+  const currentRecipes = allRecipes?.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
   const paginado = pageNumber => {
     setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
-    dispatch(getRecipes());
-    dispatch(filterByDiet());
+    dispatch(fetchAllRecipes());
+    dispatch(fetchDiets());
   }, [dispatch]);
 
   return (
     <div className='home-container'>
       <h1 className='title-home'>
-        <i class='fas fa-utensils'></i> Recipes
+        <i className='fas fa-utensils'></i> Recipes
       </h1>
 
       <Paginado
         recipesPerPage={recipesPerPage}
-        allRecipes={allRecipes.length}
+        allRecipes={allRecipes?.length}
         paginado={paginado}
       />
       <div className='container-recipes'>

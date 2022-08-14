@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getRecipes } from "../../Actions";
+import { fetchAllRecipes, fetchDiets } from "../../redux/recipesSlice";
 import "./Landing.css";
 import { useDispatch } from "react-redux";
 import Video from "../../Public/VideoLanding.mp4";
@@ -9,8 +9,9 @@ export default function Landing() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getRecipes());
-  }, []);
+    dispatch(fetchAllRecipes());
+    dispatch(fetchDiets());
+  }, [dispatch]);
 
   return (
     <main className='landing'>

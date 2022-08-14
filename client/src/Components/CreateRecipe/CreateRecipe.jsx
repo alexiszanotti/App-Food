@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDiets, postRecipe } from "../../Actions/index.js";
+import { postRecipe } from "../../redux/recipesSlice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "./CreateRecipe.css";
@@ -22,7 +22,7 @@ function validate(input) {
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();
-  const Diet = useSelector(state => state.diets);
+  const diet = useSelector(state => state.recipeReducer.diets);
   const history = useHistory();
   const [errors, setErrors] = useState({});
 
@@ -81,10 +81,6 @@ export default function CreateRecipe() {
       });
     }
   }
-
-  useEffect(() => {
-    dispatch(getDiets());
-  }, []);
 
   return (
     <div className='container-form'>
@@ -150,7 +146,7 @@ export default function CreateRecipe() {
             {errors.instructions && <p className='error'>{errors.instructions} </p>}
           </div>
           <div className='form-checkbox'>
-            {Diet.map(el => {
+            {diet.map(el => {
               return (
                 <label key={el.id}>
                   <input

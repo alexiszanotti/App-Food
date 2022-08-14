@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetails } from "../../Actions/index.js";
+import { fetchDetails } from "../../redux/recipesSlice";
 import { useEffect } from "react";
 import "./DetailsRecipe.css";
 
 export default function DetailsRecipe(props) {
-  const recipe = useSelector(state => state.details);
+  const recipe = useSelector(state => state.recipeReducer.details);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getDetails(props.match.params.id));
-  }, [dispatch]);
+    dispatch(fetchDetails(props.match.params.id));
+  }, [dispatch, props.match.params.id]);
 
   return (
     <div className='d-container'>

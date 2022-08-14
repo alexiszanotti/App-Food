@@ -2,30 +2,23 @@ import React from "react";
 import "./SearchBar.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  getRecipes,
+  setRecipes,
   filterByDiet,
   orderByName,
   orderByRank,
-  searchByName,
-  getDiets,
-} from "../../Actions/index.js";
+  searchRecipeByName,
+} from "../../redux/recipesSlice";
 
 export default function SearchBar({ setCurrentPage, setOrden }) {
   const dispatch = useDispatch();
-  const diet = useSelector(state => state.diets);
-
+  const diet = useSelector(state => state.recipeReducer.diets);
   const [name, setName] = useState("");
-
-  useEffect(() => {
-    dispatch(getDiets());
-    dispatch(searchByName(name));
-  }, [dispatch, name]);
 
   function handleClick(e) {
     e.preventDefault();
-    dispatch(getRecipes());
+    dispatch(setRecipes());
   }
 
   function handleFilterDiet(e) {
@@ -46,12 +39,12 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
 
   function handleInputChange(e) {
     e.preventDefault(e);
-    setName(e.target.value);
+    dispatch(searchRecipeByName(e.target.value));
   }
 
   function handleSubmit(e) {
     e.preventDefault(e);
-    dispatch(searchByName(name));
+    dispatch(searchRecipeByName(name));
   }
 
   return (
@@ -78,7 +71,7 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
       </form>
       <select className='input-search' onChange={e => handleFilterDiet(e)}>
         <option value='all'>Diets</option>
-        {diet.map(el => {
+        {diet?.map(el => {
           return (
             <option key={el.id} value={el.name}>
               {el.name}
