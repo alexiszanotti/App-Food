@@ -25,7 +25,6 @@ export const recipeSlice = createSlice({
         diets: action.payload,
       };
     },
-
     filterByDiet(state, action) {
       const allRecipe = state.allRecipes;
       var arregloRecetas = [];
@@ -48,7 +47,7 @@ export const recipeSlice = createSlice({
         recipes: dietFilter.concat(arregloRecetas),
       };
     },
-    orderByName(state, action) {
+    orderByName: (state, action) => {
       let arrSorted =
         action.payload === "asc"
           ? state.recipes.sort((a, b) => {
@@ -138,7 +137,6 @@ export const fetchAllRecipes = () => async dispatch => {
     console.log(error);
   }
 };
-
 export const fetchDiets = () => async dispatch => {
   try {
     let res = await axios(`/types`);
@@ -155,7 +153,6 @@ export const searchRecipeByName = name => async dispatch => {
     console.log(error);
   }
 };
-
 export const fetchDetails = idRecipe => async dispatch => {
   try {
     let res = await axios(`/recipes/${idRecipe}`);
@@ -164,7 +161,6 @@ export const fetchDetails = idRecipe => async dispatch => {
     console.log(error);
   }
 };
-
 export const postRecipe = payload => async dispatch => {
   try {
     await axios.post(`/recipe`, payload);

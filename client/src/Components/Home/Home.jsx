@@ -19,7 +19,9 @@ export default function Home({ currentPage, setCurrentPage }) {
   };
 
   useEffect(() => {
-    dispatch(fetchAllRecipes());
+    if (allRecipes.length === 0) {
+      dispatch(fetchAllRecipes());
+    }
     dispatch(fetchDiets());
   }, [dispatch]);
 

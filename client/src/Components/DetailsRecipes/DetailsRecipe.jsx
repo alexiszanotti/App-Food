@@ -5,12 +5,12 @@ import { fetchDetails } from "../../redux/recipesSlice";
 import { useEffect } from "react";
 import "./DetailsRecipe.css";
 
-export default function DetailsRecipe(props) {
+export default function DetailsRecipe({match}) {
   const recipe = useSelector(state => state.recipeReducer.details);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchDetails(props.match.params.id));
-  }, [dispatch, props.match.params.id]);
+    dispatch(fetchDetails(match.params.id));
+  }, [dispatch, match.params.id]);
 
   return (
     <div className='d-container'>
