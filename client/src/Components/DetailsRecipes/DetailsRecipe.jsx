@@ -1,16 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetails } from "../../redux/recipesSlice";
+import { fetchDetails, clearDetailState } from "../../redux/recipesSlice";
+import Spinner from "../Spinner/Spinner.jsx";
 import { useEffect } from "react";
 import "./DetailsRecipe.css";
 
-export default function DetailsRecipe({match}) {
+export default function DetailsRecipe({ match }) {
   const recipe = useSelector(state => state.recipeReducer.details);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchDetails(match.params.id));
+
+    return () => dispatch(clearDetailState());
   }, [dispatch, match.params.id]);
+
+  if (recipe.length === 0) {
+    return <Spinner />;
+  }
 
   return (
     <div className='d-container'>

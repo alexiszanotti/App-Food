@@ -4,47 +4,42 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import {
-  setRecipes,
+  fetchAllRecipes,
   filterByDiet,
   orderByName,
   orderByRank,
   searchRecipeByName,
 } from "../../redux/recipesSlice";
 
-export default function SearchBar({ setCurrentPage, setOrden }) {
+export default function SearchBar({ setCurrentPage }) {
   const dispatch = useDispatch();
   const diet = useSelector(state => state.recipeReducer.diets);
   const [name, setName] = useState("");
 
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(setRecipes());
+  function handleClick() {
+    dispatch(fetchAllRecipes());
   }
 
   function handleFilterDiet(e) {
     dispatch(filterByDiet(e.target.value));
+    setCurrentPage(1);
   }
 
   function handleSort(e) {
     dispatch(orderByName(e.target.value));
     setCurrentPage(1);
-    setOrden(e.target.value);
   }
 
   function handleRank(e) {
     dispatch(orderByRank(e.target.value));
     setCurrentPage(1);
-    setOrden(e.target.value);
-  }
-
-  function handleInputChange(e) {
-    e.preventDefault(e);
-    dispatch(searchRecipeByName(e.target.value));
   }
 
   function handleSubmit(e) {
     e.preventDefault(e);
     dispatch(searchRecipeByName(name));
+    setName("");
+    setCurrentPage(1);
   }
 
   return (
@@ -55,12 +50,13 @@ export default function SearchBar({ setCurrentPage, setOrden }) {
           handleClick(e);
         }}
       >
-        <i class='fas fa-sync-alt'></i>
+        <i className='fas fa-sync-alt'></i>
       </button>
       <form onClick={e => handleSubmit(e)}>
         <input
           className='input-search'
-          onChange={e => handleInputChange(e)}
+          onChange={e => setName(e.target.value)}
+          value={name}
           type='text'
           placeholder='Search recipe...'
         />

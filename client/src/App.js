@@ -10,13 +10,11 @@ import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 function App() {
   //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
-  const [orden, setOrden] = useState("");
   return (
     <div className='App'>
       <Route exact path='/' component={Landing} />
       <Switch>
         <Route path='/home'>
-          <SearchBar setCurrentPage={setCurrentPage} setOrden={setOrden} />
           <Home currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </Route>
         <Route path='/recipes/:id' component={DetailsRecipe} />

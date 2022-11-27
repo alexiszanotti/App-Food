@@ -12,7 +12,9 @@ export default function Recipe({ id, title, image, readyInMinutes, servings }) {
         </Link>
       </div>
       <div className='text-container'>
-        <h3 className='title-recipe'>{title}</h3>
+        <h3 className='title-recipe'>
+          {title.length > 25 ? title.substring(0, 25) + "..." : title}
+        </h3>
         <h5 className='subtitle-recipe'>
           <i class='far fa-clock'></i>
           {readyInMinutes ? " " + readyInMinutes + "  Min" : " 45 Min"} <br />
