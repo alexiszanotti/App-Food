@@ -1,5 +1,5 @@
 .container-nav {
-  width: 100%;
+  width: 90%;
   height: 5vw;
   background-color: #ddbc95;
   float: top;
@@ -7,8 +7,15 @@
   flex-direction: row;
   justify-content: space-around;
   font-family: "Cabin", sans-serif;
-  position: absolute;
+  /* position: absolute; */
   align-items: center;
+  position: relative;
+  top: -2rem;
+  right: -5rem;
+}
+
+form {
+  height: 100%;
 }
 
 .input-search {
@@ -19,6 +26,7 @@
 .button-search {
   background: transparent;
   width: 100px;
+  height: 100%;
   border: none;
   font-size: 1.3em;
 }
@@ -39,16 +47,18 @@ input {
   font-family: "Orienta", sans-serif;
 }
 
-.link {
-  color: #111;
+.input-search .link {
+  color: red;
   font-size: 1em;
   text-decoration: none;
-  text-align: center;
   width: 120px;
-  height: 45px;
+  height: 100%;
   text-align: center;
-  padding: 11.5px;
-  font-family: "Orienta", sans-serif;
+  font-family: Orienta, sans-serif;
+}
+
+.input-search a:visited {
+  color: aliceblue;
 }
 
 .link:hover {
@@ -72,7 +82,7 @@ input {
   font-size: 1em;
   width: 160px;
   font-family: "Orienta", sans-serif;
-  height: 68px;
+  height: 100%;
 }
 
 .input-search:hover:not(input[type="text"]) {

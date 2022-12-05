@@ -52,7 +52,7 @@ export default function SearchBar({ setCurrentPage }) {
       >
         <i className='fas fa-sync-alt'></i>
       </button>
-      <form onClick={e => handleSubmit(e)}>
+      <form className='form' onClick={e => handleSubmit(e)}>
         <input
           className='input-search'
           onChange={e => setName(e.target.value)}
