@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postRecipe } from "../../redux/recipesSlice";
+import { postRecipe } from "../../Store/slice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "./CreateRecipe.css";
 
 const MySwal = withReactContent(Swal);
-function validate(input) {
+const validate = ({ title, summary, spoonacularScore, healthScore, instructions }) => {
   let errors = {};
-  if (!input.title) errors.title = "Title is required ";
-  else if (!input.summary) errors.summary = "Summary es required";
-  else if (input.spoonacularScore < 1 || input.spoonacularScore > 10)
+  if (!title) errors.title = "Title is required ";
+  else if (!summary) errors.summary = "Summary es required";
+  else if (spoonacularScore < 1 || spoonacularScore > 10)
     errors.spoonacularScore = "The score has to be a number between 1 and 10 ";
-  else if (input.healthScore < 1 || input.healthScore > 100)
+  else if (healthScore < 1 || healthScore > 100)
     errors.healthScore = "The Health Score has to be a number between 1 and 100";
-  else if (!input.instructions) errors.instructions = "Instructions es required";
+  else if (!instructions) errors.instructions = "Instructions es required";
 
   return errors;
-}
+};
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();
@@ -35,24 +35,24 @@ export default function CreateRecipe() {
     diet: [],
   });
 
-  function handleInputChange(e) {
+  function handleInputChange({ target }) {
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [target.name]: target.value,
     });
     setErrors(
       validate({
         ...input,
-        [e.target.name]: e.target.value,
+        [target.name]: target.value,
       })
     );
   }
 
-  function handleCheck(e) {
-    if (e.target.checked) {
+  function handleCheck({ target }) {
+    if (target.checked) {
       setInput({
         ...input,
-        diet: [...input.diet, e.target.value],
+        diet: [...input.diet, target.value],
       });
     }
   }
@@ -146,21 +146,21 @@ export default function CreateRecipe() {
             {errors.instructions && <p className='error'>{errors.instructions} </p>}
           </div>
           <div className='form-checkbox'>
-            {diet.map(el => {
+            {diet.map(({ id, name }) => {
               return (
-                <label key={el.id}>
+                <label key={id}>
                   <input
                     className='form-checkbox'
                     type='checkbox'
                     onChange={e => handleCheck(e)}
-                    value={el.name}
+                    value={name}
                   />
-                  {el.name}
+                  {name}
                 </label>
               );
             })}
           </div>
-          <button className='btn-create' type='submit'>
+          <button disabled={errors ? true : false} className='btn-create' type='submit'>
             Create Recipe
           </button>
         </form>

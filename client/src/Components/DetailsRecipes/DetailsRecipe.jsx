@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetails, clearDetailState } from "../../redux/recipesSlice";
+import { fetchDetails, clearDetailState } from "../../Store/slice";
 import Spinner from "../Spinner/Spinner.jsx";
-import { useEffect } from "react";
 import "./DetailsRecipe.css";
 
 export default function DetailsRecipe({ match }) {
-  const recipe = useSelector(state => state.recipeReducer.details);
+  const recipe = useSelector(state => state.recipes.details);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchDetails(match.params.id));
 
     return () => dispatch(clearDetailState());
   }, [dispatch, match.params.id]);
 
-  if (recipe.length === 0) {
+  if (recipe?.length === 0) {
     return <Spinner />;
   }
 
@@ -38,14 +38,14 @@ export default function DetailsRecipe({ match }) {
         />
         <div className='subtitle-cont'>
           <h5 className='detail-subtitle'>
-            <i className='icon' class='fas fa-utensils'></i> {recipe.dishTypes + "  "}
+            <i className='icon fas fa-utensils'></i> {recipe.dishTypes + "  "}
           </h5>
           <h5 className='detail-subtitle'>
-            <i className='icon' class='fas fa-heartbeat'></i> {recipe.healthScore + " Pts."}
+            <i className='icon fas fa-heartbeat'></i> {recipe.healthScore + " Pts."}
           </h5>
           <h5 className='detail-subtitle'>
-            <i className='icon' class='fas fa-balance-scale'></i>{" "}
-            {recipe.diets?.map(el => el.name + " ")}
+            <i className='icon fas fa-balance-scale'></i>{" "}
+            {recipe.diets?.map(({ name }) => name + " ")}
           </h5>
         </div>
         <Link to='/home'>

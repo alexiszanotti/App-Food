@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { fetchAllRecipes, fetchDiets } from "../../redux/recipesSlice";
 import "./Landing.css";
 import { useDispatch } from "react-redux";
 import Video from "../../Public/VideoLanding.mp4";
+import { fetchAllRecipes, fetchDiets } from "../../Store/slice";
 
 export default function Landing() {
   const dispatch = useDispatch();

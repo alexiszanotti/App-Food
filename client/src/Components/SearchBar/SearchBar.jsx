@@ -1,19 +1,20 @@
-import React from "react";
-import "./SearchBar.css";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import "./SearchBar.css";
 import {
   fetchAllRecipes,
+  fetchDiets,
   filterByDiet,
   orderByName,
   orderByRank,
   searchRecipeByName,
-} from "../../redux/recipesSlice";
+} from "../../Store/slice";
 
 export default function SearchBar({ setCurrentPage }) {
   const dispatch = useDispatch();
-  const diet = useSelector(state => state.recipeReducer.diets);
+  const diet = useSelector(state => state.recipes.diets);
+
   const [name, setName] = useState("");
 
   function handleClick() {
@@ -36,11 +37,15 @@ export default function SearchBar({ setCurrentPage }) {
   }
 
   function handleSubmit(e) {
-    e.preventDefault(e);
+    e.preventDefault();
     dispatch(searchRecipeByName(name));
     setName("");
     setCurrentPage(1);
   }
+
+  useEffect(() => {
+    diet.length === 0 && dispatch(fetchDiets());
+  }, [dispatch, diet]);
 
   return (
     <div className='container-nav'>
@@ -62,7 +67,7 @@ export default function SearchBar({ setCurrentPage }) {
         />
 
         <button type='submit' className='button-search'>
-          <i class='fas fa-search'></i>
+          <i className='fas fa-search'></i>
         </button>
       </form>
       <select className='input-search' onChange={e => handleFilterDiet(e)}>

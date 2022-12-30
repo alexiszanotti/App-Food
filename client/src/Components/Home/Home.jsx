@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Recipe from "../Recipe/Recipe.jsx";
 import "./Home.css";
 import { useSelector, useDispatch } from "react-redux";
 import Paginado from "../Paginado/Paginado";
 import Spinner from "../Spinner/Spinner";
-import { fetchAllRecipes, fetchDiets } from "../../redux/recipesSlice";
+import { fetchAllRecipes } from "../../Store/slice";
 import SearchBar from "../SearchBar/SearchBar.jsx";
 
 export default function Home({ currentPage, setCurrentPage }) {
-  const allRecipes = useSelector(state => state.recipeReducer.recipes);
-  const [recipesPerPage, setRecipesPerPage] = useState(9);
+  const allRecipes = useSelector(state => state.recipes.recipes);
+  const recipesPerPage = 9;
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = allRecipes?.slice(indexOfFirstRecipe, indexOfLastRecipe);
@@ -19,7 +19,6 @@ export default function Home({ currentPage, setCurrentPage }) {
     if (allRecipes.length === 0) {
       dispatch(fetchAllRecipes());
     }
-    dispatch(fetchDiets());
   }, [dispatch, allRecipes]);
 
   if (allRecipes?.length === 0) return <Spinner />;
@@ -40,16 +39,16 @@ export default function Home({ currentPage, setCurrentPage }) {
       />
       <div className='container-recipes'>
         {currentRecipes &&
-          currentRecipes?.map(el => {
+          currentRecipes?.map(({ id, image, title, readyInMinutes, servings, diets }) => {
             return (
               <Recipe
-                key={el.id}
-                id={el.id}
-                image={el.image}
-                title={el.title}
-                readyInMinutes={el.readyInMinutes}
-                servings={el.servings}
-                diet={`Diet: ${el.diets.map(el => el.name || el)}`}
+                key={id}
+                id={id}
+                image={image}
+                title={title}
+                readyInMinutes={readyInMinutes}
+                servings={servings}
+                diet={diets}
               />
             );
           })}

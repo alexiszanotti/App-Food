@@ -3,7 +3,6 @@ import "./App.css";
 import Landing from "./Components/Landing/Landing";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Components/Home/Home";
-import SearchBar from "./Components/SearchBar/SearchBar";
 import DetailsRecipe from "./Components/DetailsRecipes/DetailsRecipe";
 import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 

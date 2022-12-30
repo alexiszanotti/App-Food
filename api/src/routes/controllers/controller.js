@@ -6,19 +6,18 @@ const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&
 
 async function getRecipes() {
   try {
-    const apiInfo = (await axios(url)).data.results.map(el => {
+    const { data } = await axios(url);
+    return data.results.map(el => {
       return {
         id: el.id,
         title: el.title,
         image: el.image,
         diets: el.diets,
-        score: el.spoonacularScore,
+        score: el.healthScore,
         readyInMinutes: el.readyInMinutes,
         servings: el.servings,
       };
     });
-
-    return apiInfo;
   } catch (error) {
     console.log(error);
   }
@@ -91,6 +90,7 @@ async function getRecipesById(req, res, next) {
         healthScore: recipes["healthScore"],
         diets,
       };
+
       res.status(200).json(newRecipes);
     }
   } catch (error) {
