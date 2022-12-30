@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postRecipe } from "../../Store/slice";
@@ -7,24 +7,13 @@ import withReactContent from "sweetalert2-react-content";
 import "./CreateRecipe.css";
 
 const MySwal = withReactContent(Swal);
-const validate = ({ title, summary, spoonacularScore, healthScore, instructions }) => {
-  let errors = {};
-  if (!title) errors.title = "Title is required ";
-  else if (!summary) errors.summary = "Summary es required";
-  else if (spoonacularScore < 1 || spoonacularScore > 10)
-    errors.spoonacularScore = "The score has to be a number between 1 and 10 ";
-  else if (healthScore < 1 || healthScore > 100)
-    errors.healthScore = "The Health Score has to be a number between 1 and 100";
-  else if (!instructions) errors.instructions = "Instructions es required";
-
-  return errors;
-};
 
 export default function CreateRecipe() {
   const dispatch = useDispatch();
-  const diet = useSelector(state => state.recipeReducer.diets);
+  const diet = useSelector(state => state.recipes.diets);
   const history = useHistory();
   const [errors, setErrors] = useState({});
+  const [disabledSubmit, setDisabledSubmit] = useState(true);
 
   const [input, setInput] = useState({
     title: "",
@@ -35,7 +24,20 @@ export default function CreateRecipe() {
     diet: [],
   });
 
-  function handleInputChange({ target }) {
+  let errorsMsg = {};
+  const validate = ({ title, summary, spoonacularScore, healthScore, instructions }) => {
+    if (!title) errorsMsg.title = "Title is required ";
+    else if (!summary) errorsMsg.summary = "Summary es required";
+    else if (spoonacularScore < 1 || spoonacularScore > 10)
+      errorsMsg.spoonacularScore = "The score has to be a number between 1 and 10 ";
+    else if (healthScore < 1 || healthScore > 100)
+      errorsMsg.healthScore = "The Health Score has to be a number between 1 and 100";
+    else if (!instructions) errorsMsg.instructions = "Instructions es required";
+
+    return errorsMsg;
+  };
+
+  const handleInputChange = ({ target }) => {
     setInput({
       ...input,
       [target.name]: target.value,
@@ -46,19 +48,43 @@ export default function CreateRecipe() {
         [target.name]: target.value,
       })
     );
-  }
+  };
 
-  function handleCheck({ target }) {
+  const handleCheck = ({ target }) => {
     if (target.checked) {
       setInput({
         ...input,
         diet: [...input.diet, target.value],
       });
     }
-  }
+  };
 
-  function handleSubmit(e) {
+  useEffect(() => {
+    if (
+      input.summary &&
+      input.title &&
+      input.instructions &&
+      input.spoonacularScore &&
+      input.healthScore &&
+      input.diet.length > 0
+    ) {
+      setDisabledSubmit(false);
+    } else {
+      setDisabledSubmit(true);
+    }
+  }, [input]);
+
+  const handleSubmit = e => {
     e.preventDefault();
+    if (
+      !input.summary ||
+      !input.title ||
+      !input.instructions ||
+      !input.spoonacularScore ||
+      !input.healthScore ||
+      input.diet.length === 0
+    )
+      return;
     if (Object.keys(errors).length === 0) {
       dispatch(postRecipe(input));
       MySwal.fire({
@@ -80,7 +106,7 @@ export default function CreateRecipe() {
         return MySwal.fire("UPS!", "There can be no empty fields! ", "error");
       });
     }
-  }
+  };
 
   return (
     <div className='container-form'>
@@ -89,7 +115,7 @@ export default function CreateRecipe() {
           <button className='btn-create'>Back go home</button>
         </Link>
         <h1 className='form-title'>Create your recipe</h1>
-        <form onSubmit={e => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <div>
             <input
               placeholder='Title...'
@@ -160,7 +186,7 @@ export default function CreateRecipe() {
               );
             })}
           </div>
-          <button disabled={errors ? true : false} className='btn-create' type='submit'>
+          <button disabled={disabledSubmit} className='btn-create' type='submit'>
             Create Recipe
           </button>
         </form>

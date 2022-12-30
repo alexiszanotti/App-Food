@@ -53,8 +53,8 @@ export const fetchDetails = idRecipe => async dispatch => {
 
 export const postRecipe = payload => async dispatch => {
   try {
-    await axios.post(`/recipe`, payload);
-    dispatch(postRecipes());
+    dispatch(postRecipes(payload));
+    await axios.post("/recipe", payload);
   } catch (error) {
     console.log(error);
   }
