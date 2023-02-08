@@ -1,61 +1,22 @@
-const server = require("./src/app.js");
-const { conn, Diet } = require("./src/db.js");
-const dotenv = require("dotenv");
-dotenv.config();
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const routerAuth = require("./routes/auth.js");
+const { dbConnection } = require("./database/config");
 
-// Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(process.env.PORT || 3001, async () => {
-    Diet.findOrCreate({
-      where: {
-        name: "gluten free",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "dairy free",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "vegetarian",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "lacto ovo vegetarian",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "vegan",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "pescatarian",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "paleolithic",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "primal",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "fodmap friendly",
-      },
-    });
-    Diet.findOrCreate({
-      where: {
-        name: "whole30",
-      },
-    });
-    console.log("listening at 3001"); // eslint-disable-line no-console
-  });
+const app = express();
+
+dbConnection();
+
+//Middlewares
+app.use(cors());
+app.use(express.json());
+
+//Rutas
+app.use("/api/auth", routerAuth);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server listen in port ${process.env.PORT}`);
 });
+
+module.exports = app;

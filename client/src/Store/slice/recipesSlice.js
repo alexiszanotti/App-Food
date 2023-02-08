@@ -93,7 +93,7 @@ export const recipeSlice = createSlice({
     },
 
     clearDetailState: state => {
-      state.details = [];
+      state.details = initialState.details;
     },
   },
 });

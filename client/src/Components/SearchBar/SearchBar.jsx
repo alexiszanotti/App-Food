@@ -49,12 +49,7 @@ export default function SearchBar({ setCurrentPage }) {
 
   return (
     <div className='container-nav'>
-      <button
-        className='button-search'
-        onClick={e => {
-          handleClick(e);
-        }}
-      >
+      <button className='button-search' onClick={handleClick}>
         <i className='fas fa-sync-alt'></i>
       </button>
       <form className='form' onClick={e => handleSubmit(e)}>
