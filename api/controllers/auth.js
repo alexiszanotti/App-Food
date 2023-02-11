@@ -47,6 +47,7 @@ const loginUser = async (req, res = response) => {
   try {
     let user = await User.findOne({ email });
 
+    //Validate exist user
     if (!user) {
       return res.status(400).json({
         ok: false,
@@ -54,7 +55,7 @@ const loginUser = async (req, res = response) => {
       });
     }
 
-    //Confirm password
+    //Validate password
     const validPassword = bcrypt.compareSync(password, user.password);
 
     if (!validPassword) {
@@ -63,6 +64,7 @@ const loginUser = async (req, res = response) => {
         msg: "bad credentials",
       });
     }
+
     //Generate JWT
     const token = await generateJWT(user.id, user.name);
 
@@ -81,10 +83,13 @@ const loginUser = async (req, res = response) => {
   }
 };
 
-const renewToken = (req, res = response) => {
+const renewToken = async (req, res = response) => {
+  const { name, uid } = req;
+  const token = await generateJWT(name, uid);
+
   res.json({
     ok: true,
-    msg: "revew",
+    token,
   });
 };
 
