@@ -7,14 +7,15 @@
   - Buscar recetas
   - Filtrarlas / Ordenarlas
   - Crear nuevas recetas propias
-
+  - Creación y logueo de usuarios
+  - Autenticación (JWT)
 
 
 #### Tecnologías que se implementaron:
 - [ ] React
-- [ ] Redux
+- [ ] Redux Toolkit
 - [ ] Express
-- [ ] Sequelize - Postgres
+- [ ] MongoDB
 - [ ] Css Puro
 
 #### Features
