@@ -15,6 +15,7 @@ const updateRecipe = async (req, res = response) => {
 
   try {
     const recipe = await Recipe.findById(recipeId);
+    const uid = req.uid;
 
     if (!recipe) {
       res.status(404).json({
@@ -22,6 +23,27 @@ const updateRecipe = async (req, res = response) => {
         msg: "Recipe not found",
       });
     }
+
+    if (recipe.user.toString() !== uid) {
+      res.status(401).json({
+        ok: false,
+        msg: "Can't edit that recipe",
+      });
+    }
+
+    const newRecipe = {
+      ...req.body,
+      user: uid,
+    };
+
+    const updateRecipe = await Recipe.findByIdAndUpdate(recipeId, newRecipe, {
+      new: true,
+    });
+
+    res.json({
+      ok: true,
+      recipe: updateRecipe,
+    });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({
