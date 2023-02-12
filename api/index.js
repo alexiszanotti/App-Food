@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const routerAuth = require("./routes/auth.js");
-const routerRecipes = require("./routes/recipes.js");
-const { dbConnection } = require("./database/config");
+const routerAuth = require("./src/routes/auth.js");
+const routerRecipes = require("./src/routes/recipes.js");
+const { dbConnection } = require("./src/database/config");
 
 const app = express();
 

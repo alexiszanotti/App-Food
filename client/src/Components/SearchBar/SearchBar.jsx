@@ -9,7 +9,7 @@ import {
   orderByName,
   orderByRank,
   searchRecipeByName,
-} from "../../Store/slice";
+} from "../../Redux/slice";
 
 export default function SearchBar({ setCurrentPage }) {
   const dispatch = useDispatch();

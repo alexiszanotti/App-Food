@@ -1,27 +1,23 @@
 import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { CreateRecipe, DetailRecipe, Home, Landing, Login, Register } from "./pages";
 import "./App.css";
-import Landing from "./Components/Landing/Landing";
-import { Route, Switch } from "react-router-dom";
-import Home from "./Components/Home/Home";
-import DetailsRecipe from "./Components/DetailsRecipes/DetailsRecipe";
-import CreateRecipe from "./Components/CreateRecipe/CreateRecipe";
 
 function App() {
   //Pagina actual
   const [currentPage, setCurrentPage] = useState(1);
   return (
-    <div className='App'>
-      <Route exact path='/' component={Landing} />
-      <Switch>
-        <Route path='/home'>
-          <Home currentPage={currentPage} setCurrentPage={setCurrentPage} />
-        </Route>
-        <Route path='/recipes/:id' component={DetailsRecipe} />
-        <Route path='/recipe'>
-          <CreateRecipe />
-        </Route>
-      </Switch>
-    </div>
+    <Routes>
+      <Route exact path='/' element={<Landing />} />
+      <Route
+        path='/home'
+        element={<Home currentPage={currentPage} setCurrentPage={setCurrentPage} />}
+      />
+      <Route path='/recipes/:id' element={<DetailRecipe />} />
+      <Route path='/recipe' element={<CreateRecipe />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/register' element={<Register />} />
+    </Routes>
   );
 }
 
