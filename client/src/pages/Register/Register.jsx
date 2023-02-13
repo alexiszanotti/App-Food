@@ -1,8 +1,8 @@
-import { AuthLayout } from "../../auth/layout/AuthLayout";
 import { useForm } from "../../hooks/useForm";
+import { Link } from "react-router-dom";
 
 export const Register = () => {
-  const { email, name, password, onInputChange, onResetForm } = useForm({
+  const { email, name, password, onInputChange } = useForm({
     email: "",
     password: "",
     name: "",
@@ -10,13 +10,13 @@ export const Register = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log({ email, password });
-    onResetForm();
+    console.log({ email, password, name });
   };
 
   return (
-    <AuthLayout title='Login'>
-      <form onSubmit={onSubmit}>
+    <div className='auth-containner'>
+      <form className='form-auth-container' onSubmit={onSubmit}>
+        <h3>Creatte an account</h3>
         <input type='text' placeholder='name' name='name' value={name} onChange={onInputChange} />
         <input
           type='email'
@@ -33,8 +33,8 @@ export const Register = () => {
           onChange={onInputChange}
         />
         <button type='submit'>Create</button>
-        <p>Sign In</p>
+        <Link to='/login'>Sign In</Link>
       </form>
-    </AuthLayout>
+    </div>
   );
 };

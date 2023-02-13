@@ -2,3 +2,68 @@
   margin: 0;
   padding: 0;
 }
+
+.auth-containner {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: #ddbc95;
+}
+
+.form-auth-container {
+  width: 25%;
+  height: 42%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  border-radius: 1rem;
+  padding: 0 2rem;
+}
+
+.form-auth-container input {
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 0.5rem 0;
+}
+
+.form-auth-container button {
+  background-color: #222;
+  color: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  font-family: "Cabin", sans-serif;
+}
+.form-auth-container button:hover {
+  background-color: #666;
+  border-color: #666;
+  cursor: pointer;
+}
+
+.form-auth-container p {
+  color: #666;
+  cursor: pointer;
+  margin-left: 8rem;
+  font-size: 0.8rem;
+}
+.form-auth-container span a span {
+  color: #222;
+}
+.form-auth-container span a span:hover {
+  cursor: pointer;
+}
+
+.form-auth-container a {
+  margin-left: 8rem;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.form-auth-container a:hover {
+  cursor: pointer;
+}

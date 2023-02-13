@@ -1,23 +1,30 @@
-import { AuthLayout } from "../../auth/layout/AuthLayout";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { GoogleLogin, googleLogout } from "@react-oauth/google";
-import jwt_decode from "jwt-decode";
+import { Link } from "react-router-dom";
+import { checkingAuthentication } from "../../Redux/slice/thunkAuth";
 
 export const Login = () => {
-  const { email, password, onInputChange, onResetForm } = useForm({
+  const { email, password, onInputChange } = useForm({
     email: "",
     password: "",
   });
 
+  const dispatch = useDispatch();
+
+  const { status } = useSelector(state => state.auth);
+
+  const isAuthenticating = useMemo(() => status === "checking", [status]);
+
   const onSubmit = e => {
     e.preventDefault();
-    console.log({ email, password });
-    onResetForm();
+    dispatch(checkingAuthentication(email, password));
   };
 
   return (
-    <AuthLayout title='Login'>
-      <form onSubmit={onSubmit}>
+    <div className='auth-containner'>
+      <form className='form-auth-container' onSubmit={onSubmit}>
+        <h2>Login</h2>
         <input
           type='email'
           placeholder='email'
@@ -32,19 +39,15 @@ export const Login = () => {
           value={password}
           onChange={onInputChange}
         />
-        <button type='submit'>Login</button>
-        <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-            const decode = jwt_decode(credentialResponse.credential);
-            console.log(decode);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        />
-        <button onClick={() => googleLogout()}>Logout</button>;<p>Crear una cuenta</p>
+        <button disabled={isAuthenticating} type='submit'>
+          Sign in
+        </button>
+        <span>
+          <Link to='/register'>
+            New? <span>Create an account</span>
+          </Link>
+        </span>
       </form>
-    </AuthLayout>
+    </div>
   );
 };

@@ -1,3 +1,4 @@
 export * from "./recipesSlice";
-export * from "./thunk";
+export * from "./thunkRecipes";
 export * from "./authSlice";
+export * from "./thunkAuth";
