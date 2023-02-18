@@ -4,14 +4,14 @@ const User = require("../models/Users");
 const { generateJWT } = require("../helpers/jwt");
 
 const createUser = async (req, res = response) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
   try {
     let user = await User.findOne({ email });
 
     if (user) {
       return res.status(400).json({
         ok: false,
-        msg: "Bad credentials",
+        msg: "User is already in use",
       });
     }
 
@@ -30,6 +30,7 @@ const createUser = async (req, res = response) => {
       ok: true,
       uid: user.id,
       name: user.name,
+      email: user.email,
       token,
     });
   } catch (error) {
@@ -43,7 +44,6 @@ const createUser = async (req, res = response) => {
 
 const loginUser = async (req, res = response) => {
   const { email, password } = req.body;
-
   try {
     let user = await User.findOne({ email });
 
