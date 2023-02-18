@@ -23,8 +23,8 @@ export const authSlice = createSlice({
       state.status = "not-authenticated";
       state.uid = null;
       state.email = null;
-      state.displayName = null;
-      state.errorMessage = payload.errorMessage;
+      state.name = null;
+      state.errorMessage = payload;
     },
     checkingCredentials: state => {
       state.status = "checking";

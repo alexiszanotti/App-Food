@@ -1,7 +1,7 @@
 import React from "react";
 import "./Recipe.css";
 import { Link } from "react-router-dom";
-import Imagen from "../../Public/alimentos.jpg";
+import Imagen from "../../assets/alimentos.jpg";
 
 export default function Recipe({ id, title, image, readyInMinutes, servings, diet }) {
   const dietsRecipe = diet.map(diet => diet);

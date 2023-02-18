@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 import { useDispatch } from "react-redux";
-import Video from "../../Public/VideoLanding.mp4";
+import Video from "../../assets/VideoLanding.mp4";
 import { fetchAllRecipes, fetchDiets } from "../../Redux/slice";
 
 export const Landing = () => {
