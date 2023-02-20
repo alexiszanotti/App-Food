@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "./SearchBar.css";
 import {
   fetchAllRecipes,
-  fetchDiets,
-  filterByDiet,
+  logout,
   orderByName,
   orderByRank,
   searchRecipeByName,
 } from "../../Redux/slice";
+import "./SearchBar.css";
 
 export default function SearchBar({ setCurrentPage }) {
   const dispatch = useDispatch();
-  const diet = useSelector(state => state.recipes.diets);
+
+  const startLogout = () => {
+    localStorage.clear();
+    dispatch(logout());
+  };
+
+  const { name: userName } = useSelector(state => state.auth);
 
   const [name, setName] = useState("");
 
   function handleClick() {
     dispatch(fetchAllRecipes());
-  }
-
-  function handleFilterDiet(e) {
-    dispatch(filterByDiet(e.target.value));
-    setCurrentPage(1);
   }
 
   function handleSort(e) {
@@ -43,10 +43,6 @@ export default function SearchBar({ setCurrentPage }) {
     setCurrentPage(1);
   }
 
-  useEffect(() => {
-    diet.length === 0 && dispatch(fetchDiets());
-  }, [dispatch, diet]);
-
   return (
     <div className='container-nav'>
       <button className='button-search' onClick={handleClick}>
@@ -65,23 +61,12 @@ export default function SearchBar({ setCurrentPage }) {
           <i className='fas fa-search'></i>
         </button>
       </form>
-      <select className='input-search' onChange={e => handleFilterDiet(e)}>
-        <option value='all'>Diets</option>
-        {diet?.map(el => {
-          return (
-            <option key={el.id} value={el.name}>
-              {el.name}
-            </option>
-          );
-        })}
-      </select>
-
-      <select className='input-search' onChange={e => handleSort(e)}>
+      <select className='input-search' onChange={handleSort}>
         <option value='all'>Order by </option>
         <option value='asc'>A - Z </option>
         <option value='des'>Z - A</option>
       </select>
-      <select className='input-search' onChange={e => handleRank(e)}>
+      <select className='input-search' onChange={handleRank}>
         <option value=''>Order by </option>
         <option value='all'>Score -</option>
         <option value='score'>Score +</option>
@@ -90,6 +75,12 @@ export default function SearchBar({ setCurrentPage }) {
       <Link className='link' to='/recipe'>
         Create your recipe
       </Link>
+      <div className='user-logout'>
+        <p>{userName}</p>
+        <button onClick={startLogout} className='btn-logut'>
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

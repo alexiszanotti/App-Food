@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import "./Landing.css";
 import { useDispatch } from "react-redux";
 import Video from "../../assets/VideoLanding.mp4";
-import { fetchAllRecipes, fetchDiets } from "../../Redux/slice";
+import { fetchAllRecipes } from "../../Redux/slice";
 
 export const Landing = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllRecipes());
-    dispatch(fetchDiets());
   }, [dispatch]);
 
   return (

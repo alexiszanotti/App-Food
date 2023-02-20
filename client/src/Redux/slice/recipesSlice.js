@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   recipes: [],
   allRecipes: [],
-  details: [],
+  detail: {},
   diets: [],
 };
 
@@ -14,20 +14,6 @@ export const recipeSlice = createSlice({
     setRecipes: (state, { payload }) => {
       state.recipes = payload;
       state.allRecipes = payload;
-    },
-
-    setDiets: (state, { payload }) => {
-      state.diets = payload;
-    },
-
-    filterByDiet: (state, { payload }) => {
-      const allRecipe = state.recipes;
-      const dietFilter =
-        payload === "all"
-          ? state.allRecipes
-          : allRecipe.filter(({ diets }) => diets.includes(payload));
-
-      state.recipes = dietFilter;
     },
 
     orderByName: (state, { payload }) => {
@@ -56,22 +42,23 @@ export const recipeSlice = createSlice({
     },
 
     orderByRank: (state, { payload }) => {
+      console.log(payload);
       const arrSorted1 =
         payload === "score"
           ? state.recipes.sort((a, b) => {
-              if (a.score > b.score) {
+              if (a.healthScore > b.healthScore) {
                 return -1;
               }
-              if (b.score > a.score) {
+              if (b.healthScore > a.healthScore) {
                 return 1;
               }
               return 0;
             })
           : state.recipes.sort((a, b) => {
-              if (a.score > b.score) {
+              if (a.healthScore > b.healthScore) {
                 return 1;
               }
-              if (b.score > a.score) {
+              if (b.healthScore > a.healthScore) {
                 return -1;
               }
               return 0;
@@ -85,7 +72,7 @@ export const recipeSlice = createSlice({
     },
 
     getDetails: (state, { payload }) => {
-      state.details = payload;
+      state.detail = payload;
     },
 
     postRecipes: state => {
@@ -93,16 +80,14 @@ export const recipeSlice = createSlice({
     },
 
     clearDetailState: state => {
-      state.details = initialState.details;
+      state.detail = initialState.detail;
     },
   },
 });
 
 export const {
   setRecipes,
-  setDiets,
   getDetails,
-  filterByDiet,
   orderByName,
   orderByRank,
   searchByName,

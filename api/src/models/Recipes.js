@@ -10,10 +10,6 @@ const RecipesSchema = new Schema({
     type: String,
     required: true,
   },
-  spoonacularScore: {
-    type: Number,
-    required: true,
-  },
   healthScore: {
     type: Number,
     required: true,

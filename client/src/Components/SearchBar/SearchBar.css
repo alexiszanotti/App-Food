@@ -1,17 +1,28 @@
 .container-nav {
-  width: 90%;
-  height: 5vw;
+  width: 100%;
+  height: 3rem;
   background-color: #ddbc95;
   float: top;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   font-family: "Cabin", sans-serif;
-  /* position: absolute; */
   align-items: center;
-  position: relative;
-  top: -2rem;
-  right: -5rem;
+  margin-bottom: 1rem;
+}
+
+.container-nav .btn-logut {
+  background-color: #111;
+  color: #ddbc95;
+  font-family: "Cabin";
+  border: none;
+  font-size: medium;
+  padding: 0.5rem 2rem;
+  border-radius: 0.5rem;
+}
+.container-nav .btn-logut:hover {
+  background-color: #444;
+  cursor: pointer;
 }
 
 form {
@@ -34,7 +45,6 @@ form {
   cursor: pointer;
   background: #b38867;
   color: #fff;
-  padding: 21.5px;
 }
 .btn-search {
   font-size: 1.3em;
@@ -61,9 +71,24 @@ input {
   color: aliceblue;
 }
 
+.input-search:focus {
+  outline: none;
+}
+
 .link:hover {
   background: #b38867;
   color: #fff;
+}
+
+.user-logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-logout p {
+  margin: 0;
 }
 
 .icons {

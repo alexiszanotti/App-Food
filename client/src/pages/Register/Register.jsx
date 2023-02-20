@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
-import { startCreatingUser } from "../../Redux/slice/thunkAuth";
 import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import { useAuthStore } from "../../hooks/useAuthStore";
 
 const formValidations = {
   email: [value => value.includes("@"), "the email must contain an at sign"],
@@ -27,12 +28,18 @@ export const Register = () => {
     },
     formValidations
   );
-
+  const { startRegister } = useAuthStore();
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(startCreatingUser({ email, name, password }));
+    dispatch(startRegister({ email, name, password }));
     setFormSubmitted(true);
   };
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Authentication error", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <div className='auth-containner'>
@@ -56,7 +63,6 @@ export const Register = () => {
           onChange={onInputChange}
         />
         {!!passwordValid && formSubmitted && <p className='error-message'>{passwordValid}</p>}
-        {!!errorMessage && <p className='error-message'>{errorMessage}</p>}
         <button disabled={isCheckingAuthentication} type='submit'>
           Create
         </button>

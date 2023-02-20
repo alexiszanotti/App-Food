@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
-import { startLogin } from "../../Redux/slice/thunkAuth";
+import Swal from "sweetalert2";
+import { useAuthStore } from "./../../hooks/useAuthStore";
 
 const formValidations = {
   email: [value => value.includes("@"), "the email must contain an at sign"],
@@ -19,6 +20,8 @@ export const Login = () => {
     formValidations
   );
 
+  const { startLogin } = useAuthStore();
+
   const dispatch = useDispatch();
 
   const { status, errorMessage } = useSelector(state => state.auth);
@@ -31,6 +34,12 @@ export const Login = () => {
     dispatch(startLogin({ email, password }));
     setFormSubmitted(true);
   };
+
+  useEffect(() => {
+    if (errorMessage !== undefined) {
+      Swal.fire("Authentication error", errorMessage, "error");
+    }
+  }, [errorMessage]);
 
   return (
     <div className='auth-containner'>
@@ -52,7 +61,6 @@ export const Login = () => {
           onChange={onInputChange}
         />
         {!!passwordValid && formSubmitted && <p className='error-message'>{passwordValid}</p>}
-        {!!errorMessage && <p className='error-message'>{errorMessage}</p>}
         <button disabled={isAuthenticating} type='submit'>
           Sign in
         </button>

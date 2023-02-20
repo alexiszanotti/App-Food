@@ -1,25 +1,10 @@
-import axios from "axios";
-import {
-  getDetails,
-  orderByName,
-  postRecipes,
-  searchByName,
-  setDiets,
-  setRecipes,
-} from "./recipesSlice";
+import { getDetails, orderByName, postRecipes, searchByName, setRecipes } from "./recipesSlice";
+import recipesApi from "./../../api/recipesApi";
 
 export const fetchAllRecipes = () => async dispatch => {
   try {
-    const { data } = await axios(`/recipes`);
+    const { data } = await recipesApi(`/recipes`);
     dispatch(setRecipes(data));
-  } catch (error) {
-    console.log(error);
-  }
-};
-export const fetchDiets = () => async dispatch => {
-  try {
-    const { data } = await axios(`/types`);
-    dispatch(setDiets(data));
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +20,7 @@ export const orderRecipesByName = payload => async dispatch => {
 
 export const searchRecipeByName = name => async dispatch => {
   try {
-    const { data } = await axios(`/recipes?name=${name}`);
+    const { data } = await recipesApi(`/recipes?name=${name}`);
     dispatch(searchByName(data));
   } catch (error) {
     console.log(error);
@@ -44,7 +29,8 @@ export const searchRecipeByName = name => async dispatch => {
 
 export const fetchDetails = idRecipe => async dispatch => {
   try {
-    const { data } = await axios(`/recipes/${idRecipe}`);
+    const { data } = await recipesApi(`/recipes/${idRecipe}`);
+
     dispatch(getDetails(data));
   } catch (error) {
     console.log(error);
@@ -54,7 +40,7 @@ export const fetchDetails = idRecipe => async dispatch => {
 export const postRecipe = payload => async dispatch => {
   try {
     dispatch(postRecipes(payload));
-    await axios.post("/recipe", payload);
+    await recipesApi.post("/recipe", payload);
   } catch (error) {
     console.log(error);
   }

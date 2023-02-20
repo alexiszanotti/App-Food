@@ -9,7 +9,7 @@ import SearchBar from "../../Components/SearchBar/SearchBar.jsx";
 
 export const Home = ({ currentPage, setCurrentPage }) => {
   const allRecipes = useSelector(state => state.recipes.recipes);
-  const recipesPerPage = 9;
+  const recipesPerPage = 10;
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = allRecipes?.slice(indexOfFirstRecipe, indexOfLastRecipe);
@@ -25,11 +25,6 @@ export const Home = ({ currentPage, setCurrentPage }) => {
 
   return (
     <div className='home-container'>
-      <div className='div-nav'>
-        <h1 className='title-home'>
-          <i className='fas fa-utensils'></i> Recipes
-        </h1>
-      </div>
       <SearchBar setCurrentPage={setCurrentPage} />
       <Paginado
         recipesPerPage={recipesPerPage}
