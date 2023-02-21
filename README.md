@@ -7,7 +7,7 @@
   - Buscar recetas
   - Filtrarlas / Ordenarlas
   - Crear nuevas recetas propias
-  - Creación y logueo de usuarios
+  - Registro y logueo de usuarios
   - Autenticación (JWT)
 
 
