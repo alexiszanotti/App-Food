@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
+require('dotenv').config({ path: 'DB_CNN' });
 
 const dbConnection = () => {
   try {
     mongoose.set("strictQuery", false);
     mongoose
-      .connect(process.env.DB_CNN,{ useNewUrlParser: true })
+      .connect(process.env.DB_CNN)
       .then(() => console.log("DB online"))
       .catch(error => console.log(error));
   } catch (error) {
