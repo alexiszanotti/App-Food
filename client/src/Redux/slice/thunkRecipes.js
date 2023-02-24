@@ -3,7 +3,7 @@ import recipesApi from "./../../api/recipesApi";
 
 export const fetchAllRecipes = () => async dispatch => {
   try {
-    const { data } = await recipesApi(`/api/recipes`);
+    const { data } = await recipesApi.get(`/api/recipes`);
     dispatch(setRecipes(data));
   } catch (error) {
     console.log(error);
@@ -20,7 +20,7 @@ export const orderRecipesByName = payload => async dispatch => {
 
 export const searchRecipeByName = name => async dispatch => {
   try {
-    const { data } = await recipesApi(`/api/recipes?name=${name}`);
+    const { data } = await recipesApi.get(`/api/recipes?name=${name}`);
     dispatch(searchByName(data));
   } catch (error) {
     console.log(error);
@@ -29,7 +29,7 @@ export const searchRecipeByName = name => async dispatch => {
 
 export const fetchDetails = idRecipe => async dispatch => {
   try {
-    const { data } = await recipesApi(`/api/recipes/${idRecipe}`);
+    const { data } = await recipesApi.get(`/api/recipes/${idRecipe}`);
 
     dispatch(getDetails(data));
   } catch (error) {
