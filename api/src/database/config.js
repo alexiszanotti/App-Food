@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-require('dotenv').config({ path: 'DB_CNN' });
+require('dotenv').config();
 
 const dbConnection = () => {
   try {
