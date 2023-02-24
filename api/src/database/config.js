@@ -5,7 +5,7 @@ const dbConnection = () => {
   try {
     mongoose.set("strictQuery", false);
     mongoose
-      .connect(process.env.DB_CNN)
+      .connect(process.env.DB_CNN,{ useNewUrlParser: true })
       .then(() => console.log("DB online"))
       .catch(error => console.log(error));
   } catch (error) {
