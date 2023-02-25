@@ -67,8 +67,8 @@ El modelo de la base de datos contiene las siguientes entidades (Aquellas propie
 - [ ] Usuarios:
   - ID (Generado automaticamente por mongo)
   - Nombre
-    -Email
-    -Password (Se hashea al crearse el usuario)
+  -Email
+  -Password (Se hashea al crearse el usuario)
 
 #### Backend
 
