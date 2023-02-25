@@ -31,7 +31,9 @@ export const Register = () => {
   const { startRegister } = useAuthStore();
   const onSubmit = e => {
     e.preventDefault();
-    dispatch(startRegister({ email, name, password }));
+    if (!nameValid && !emailValid && !passwordValid) {
+      dispatch(startRegister({ email, name, password }));
+    }
     setFormSubmitted(true);
   };
 

@@ -4,6 +4,7 @@ import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuthStore } from "./../../hooks/useAuthStore";
+import Spinner from "./../../Components/Spinner/Spinner";
 
 const formValidations = {
   email: [value => value.includes("@"), "the email must contain an at sign"],
@@ -40,6 +41,10 @@ export const Login = () => {
       Swal.fire("Authentication error", errorMessage, "error");
     }
   }, [errorMessage]);
+
+  if (isAuthenticating) {
+    return <Spinner />;
+  }
 
   return (
     <div className='auth-containner'>

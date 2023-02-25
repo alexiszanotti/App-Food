@@ -3,7 +3,7 @@ import "./Recipe.css";
 import { Link } from "react-router-dom";
 import Imagen from "../../assets/alimentos.jpg";
 
-export default function Recipe({ id, title, image, readyInMinutes, servings, diet }) {
+export default function Recipe({ id, title, image, healthScore, servings, diet }) {
   return (
     <div className='recipe-container'>
       <div className='img-container'>
@@ -15,8 +15,8 @@ export default function Recipe({ id, title, image, readyInMinutes, servings, die
         <h3 className='title-recipe'>{title}</h3>
         <div className='subtitle-recipe'>
           <span>
-            <i className='far fa-clock'></i>
-            {readyInMinutes ? " " + readyInMinutes + "  Min" : " 45 Min"}
+            <i className='icon fas fa-heartbeat'></i>
+            {healthScore}
           </span>
           <span>
             <i className='fas fa-users'></i>

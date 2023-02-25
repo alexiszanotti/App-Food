@@ -4,7 +4,7 @@ const User = require("../models/Users");
 const { generateJWT } = require("../helpers/jwt");
 
 const createUser = async (req, res = response) => {
-  const { email, password, name } = req.body;
+  const { email, password } = req.body;
   try {
     let user = await User.findOne({ email });
 

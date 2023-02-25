@@ -5,6 +5,7 @@ const initialState = {
   allRecipes: [],
   detail: {},
   diets: [],
+  error: "",
 };
 
 export const recipeSlice = createSlice({
@@ -82,6 +83,10 @@ export const recipeSlice = createSlice({
     clearDetailState: state => {
       state.detail = initialState.detail;
     },
+
+    recipeNotFound: state => {
+      state.error = "Recipe not found";
+    },
   },
 });
 
@@ -93,4 +98,5 @@ export const {
   searchByName,
   postRecipes,
   clearDetailState,
+  recipeNotFound,
 } = recipeSlice.actions;

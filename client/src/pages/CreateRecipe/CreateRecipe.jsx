@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { postRecipe } from "../../Redux/slice";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -10,7 +10,6 @@ const MySwal = withReactContent(Swal);
 
 export const CreateRecipe = () => {
   const dispatch = useDispatch();
-  const diet = useSelector(state => state.recipes.diets);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [disabledSubmit, setDisabledSubmit] = useState(true);
@@ -21,7 +20,6 @@ export const CreateRecipe = () => {
     spoonacularScore: "",
     healthScore: "",
     instructions: "",
-    diet: [],
   });
 
   let errorsMsg = {};
@@ -50,23 +48,13 @@ export const CreateRecipe = () => {
     );
   };
 
-  const handleCheck = ({ target }) => {
-    if (target.checked) {
-      setInput({
-        ...input,
-        diet: [...input.diet, target.value],
-      });
-    }
-  };
-
   useEffect(() => {
     if (
       input.summary &&
       input.title &&
       input.instructions &&
       input.spoonacularScore &&
-      input.healthScore &&
-      input.diet.length > 0
+      input.healthScore
     ) {
       setDisabledSubmit(false);
     } else {
@@ -111,9 +99,11 @@ export const CreateRecipe = () => {
   return (
     <div className='container-form'>
       <div className='form-container'>
-        <Link to='/home'>
-          <button className='btn-create'>Back go home</button>
-        </Link>
+        <div className='icon-container'>
+          <Link to='/home'>
+            <i className='icon fas fa-arrow-left'></i>
+          </Link>
+        </div>
         <h1 className='form-title'>Create your recipe</h1>
         <form onSubmit={handleSubmit}>
           <div>
@@ -171,21 +161,7 @@ export const CreateRecipe = () => {
             />
             {errors.instructions && <p className='error'>{errors.instructions} </p>}
           </div>
-          <div className='form-checkbox'>
-            {diet.map(({ id, name }) => {
-              return (
-                <label key={id}>
-                  <input
-                    className='form-checkbox'
-                    type='checkbox'
-                    onChange={e => handleCheck(e)}
-                    value={name}
-                  />
-                  {name}
-                </label>
-              );
-            })}
-          </div>
+
           <button disabled={disabledSubmit} className='btn-create' type='submit'>
             Create Recipe
           </button>

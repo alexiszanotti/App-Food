@@ -38,9 +38,11 @@ export default function SearchBar({ setCurrentPage }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(searchRecipeByName(name));
-    setName("");
-    setCurrentPage(1);
+    if (name.length > 3) {
+      dispatch(searchRecipeByName(name));
+      setName("");
+      setCurrentPage(1);
+    }
   }
 
   return (
@@ -72,9 +74,7 @@ export default function SearchBar({ setCurrentPage }) {
         <option value='score'>Score +</option>
       </select>
 
-      <Link className='link' to='/recipe'>
-        Create your recipe
-      </Link>
+      <Link to='/recipe'>Create your recipe</Link>
       <div className='user-logout'>
         <p>{userName}</p>
         <button onClick={startLogout} className='btn-logut'>

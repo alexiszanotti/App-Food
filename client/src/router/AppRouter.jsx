@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Spinner from "../Components/Spinner/Spinner";
 import { CreateRecipe, DetailRecipe, Home, Landing, Login, Register } from "../pages";
 import { useAuthStore } from "./../hooks/useAuthStore";
 export const AppRouter = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
   const { status, checkAuthToken } = useAuthStore();
 
   useEffect(() => {
@@ -26,10 +24,7 @@ export const AppRouter = () => {
         </>
       ) : (
         <>
-          <Route
-            path='/home'
-            element={<Home currentPage={currentPage} setCurrentPage={setCurrentPage} />}
-          />
+          <Route path='/home' element={<Home />} />
           <Route exact path='/' element={<Landing />} />
           <Route path='/recipes/:id' element={<DetailRecipe />} />
           <Route path='/recipe' element={<CreateRecipe />} />

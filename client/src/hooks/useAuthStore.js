@@ -35,7 +35,9 @@ export const useAuthStore = () => {
       localStorage.setItem("token", data.token);
       dispatch(login(data));
     } catch (error) {
-      dispatch(logout(error.response.data.msg));
+      dispatch(
+        logout(`${error.response.data.errors[0].param} ${error.response.data.errors[0].msg}`)
+      );
       setTimeout(() => {
         dispatch(clearErrorMEssage());
       }, 10);

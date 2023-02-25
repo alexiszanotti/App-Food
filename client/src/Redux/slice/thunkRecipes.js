@@ -1,4 +1,11 @@
-import { getDetails, orderByName, postRecipes, searchByName, setRecipes } from "./recipesSlice";
+import {
+  getDetails,
+  orderByName,
+  postRecipes,
+  searchByName,
+  setRecipes,
+  recipeNotFound,
+} from "./recipesSlice";
 import recipesApi from "./../../api/recipesApi";
 
 export const fetchAllRecipes = () => async dispatch => {
@@ -21,7 +28,12 @@ export const orderRecipesByName = payload => async dispatch => {
 export const searchRecipeByName = name => async dispatch => {
   try {
     const { data } = await recipesApi(`/recipes?name=${name}`);
-    dispatch(searchByName(data));
+
+    if (data.length) {
+      dispatch(searchByName(data));
+    } else {
+      dispatch(recipeNotFound());
+    }
   } catch (error) {
     console.log(error);
   }
