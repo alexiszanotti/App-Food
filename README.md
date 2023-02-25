@@ -7,7 +7,7 @@
   - Buscar recetas
   - Filtrarlas / Ordenarlas
   - Crear nuevas recetas propias
-  - Creación y logueo de usuarios
+  - Registro y logueo de usuarios
   - Autenticación (JWT)
 
 
@@ -95,9 +95,9 @@ Se desarrolló un servidor en Node/Express con las siguientes rutas:
 En `api` crear un archivo llamado: `.env` que tenga la siguiente forma:
 
 ```
-DB_USER=usuariodepostgres
-DB_PASSWORD=passwordDePostgres
-DB_HOST=localhost
+DB_USER=userMongo
+DB_PASSWORD=passwordMongo
+DB_URL=urlToconnect
 ```
 
 Reemplazar `usuariodepostgres` y `passwordDePostgres` con tus propias credenciales para conectarte a postgres. Este archivo va ser ignorado en la subida a github, ya que contiene información sensible (las credenciales).

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+console.log(process.env.DB_CNN)
+
 const dbConnection = () => {
   try {
     mongoose.set("strictQuery", false);
