@@ -100,7 +100,9 @@ API_BASE_URL: Base URL para hacer las peticiones a la api
 
 En `client` crear un archivo llamado: `.env` que tenga la siguiente forma:
 
+```
 REACT_APP_API_URL= http://localhost:4000/api/ (Base para hacer las peticiones al back)
+```
 
 El contenido de `client` fue creado usando: Create React App.
 
