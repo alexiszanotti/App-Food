@@ -38,12 +38,7 @@ router.post(
       .withMessage("healthScore is required")
       .isInt({ min: 1, max: 100 })
       .withMessage("numeric values between 1 and 100"),
-    body("instructions").notEmpty().withMessage("instructions is required"),
-    body("diets")
-      .notEmpty()
-      .withMessage("diets is required")
-      .isArray()
-      .withMessage("must be an array"),
+    body("steps").notEmpty().withMessage("steps is required"),
     validateFields,
   ],
   createRecipe

@@ -12,7 +12,7 @@ export const useAuthStore = () => {
     async dispatch => {
       dispatch(checkingCredentials());
       try {
-        const { data } = await usersApi.post("/api/auth", { email, password });
+        const { data } = await usersApi.post("/auth", { email, password });
 
         localStorage.setItem("token", data.token);
 
@@ -31,7 +31,7 @@ export const useAuthStore = () => {
     dispatch(checkingCredentials());
 
     try {
-      const { data } = await usersApi.post("/api/auth/new", { name, email, password });
+      const { data } = await usersApi.post("/auth/new", { name, email, password });
       localStorage.setItem("token", data.token);
       dispatch(login(data));
     } catch (error) {
@@ -50,7 +50,7 @@ export const useAuthStore = () => {
     if (!token) return dispatch(logout());
 
     try {
-      const { data } = await usersApi("/api/auth/renew");
+      const { data } = await usersApi("/auth/renew");
       localStorage.setItem("token", data.token);
       dispatch(login(data));
     } catch (error) {

@@ -44,10 +44,10 @@ export const useForm = (initialForm = {}, formValidations = {}) => {
 
   return {
     ...formState,
+    ...formValidation,
     formState,
     onInputChange,
     onResetForm,
-    ...formValidation,
     isFormValid,
   };
 };

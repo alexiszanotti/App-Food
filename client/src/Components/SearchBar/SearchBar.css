@@ -32,7 +32,7 @@
 
 .input-search {
   border: none;
-  background: transparent;
+  /* background: transparent; */
 }
 
 .button-search {
@@ -42,11 +42,7 @@
   border: none;
   font-size: 1.3em;
 }
-.button-search:hover {
-  cursor: pointer;
-  background: #b38867;
-  color: #fff;
-}
+
 .btn-search {
   font-size: 1.3em;
 }
@@ -64,11 +60,6 @@ input {
 
 .input-search:focus {
   outline: none;
-}
-
-.link:hover {
-  background: #b38867;
-  color: #fff;
 }
 
 .user-logout {
@@ -99,11 +90,4 @@ input {
   width: 160px;
   font-family: "Orienta", sans-serif;
   height: 100%;
-}
-
-.input-search:hover:not(input[type="text"]) {
-  cursor: pointer;
-  background: #b38867;
-  color: #fff;
-  border: none;
 }

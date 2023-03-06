@@ -23,7 +23,7 @@ export default function Recipe({ id, title, image, healthScore, servings, diet }
             {servings ? " " + servings : "2"}
           </span>
         </div>
-        {diet.map((diet, index) => (
+        {diet?.map((diet, index) => (
           <span className='diets' key={index + 1}>
             {diet}
           </span>

@@ -17,11 +17,12 @@ export const DetailRecipe = () => {
     return () => dispatch(clearDetailState());
   }, [dispatch, id]);
 
-  if (!recipe?.ok) {
+  if (Object.keys(recipe).length === 0) {
     return <Spinner />;
   }
 
-  const { healthScore, servings, diets, steps, summary, title, instructions } = recipe.detailRecipe;
+  const { healthScore, servings, diets, steps, summary, title, instructions, extendedIngredients } =
+    recipe;
 
   return (
     <>
@@ -51,8 +52,8 @@ export const DetailRecipe = () => {
         </Link>
       </div>
       <div className='steps'>
-        {steps &&
-          steps.map(({ step, number }) => (
+        {Array.isArray(steps) &&
+          steps?.map(({ step, number }) => (
             <>
               <span key={number}>
                 <i className='fa-sharp fa-solid fa-thumbtack'></i> {number}:
@@ -61,6 +62,9 @@ export const DetailRecipe = () => {
             </>
           ))}
       </div>
+      {extendedIngredients?.map(({ image, originalName }) => (
+        <img src={`https://spoonacular.com/cdn/ingredients_100x100/${image}`} alt={originalName} />
+      ))}
     </>
   );
 };

@@ -31,8 +31,17 @@ const getRecipeById = async recipeId => {
     `${process.env.API_BASE_URL}/${recipeId}/information?apiKey=${process.env.API_KEY}`
   );
 
-  const { id, title, image, summary, servings, healthScore, diets, analyzedInstructions } =
-    response.data;
+  const {
+    id,
+    title,
+    image,
+    summary,
+    servings,
+    healthScore,
+    diets,
+    analyzedInstructions,
+    extendedIngredients,
+  } = response.data;
 
   const detailRecipe = {
     id,
@@ -42,6 +51,7 @@ const getRecipeById = async recipeId => {
     servings,
     healthScore,
     diets,
+    extendedIngredients,
     steps: analyzedInstructions[0].steps,
   };
 

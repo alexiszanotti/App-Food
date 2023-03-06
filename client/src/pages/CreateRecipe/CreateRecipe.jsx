@@ -1,99 +1,59 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { postRecipe } from "../../Redux/slice";
+import { useForm } from "./../../hooks/useForm";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import "./CreateRecipe.css";
 
-const MySwal = withReactContent(Swal);
+const formValidations = {
+  title: [value => value?.length >= 3, "Minimum three characters"],
+  summary: [value => value],
+  spoonacularScore: [value => value && value <= 10, "It has to be a number between 1 and 10"],
+  healthScore: [value => value && value <= 100, "It has to be a number between 1 and 10"],
+  steps: [value => value],
+};
 
 export const CreateRecipe = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
-  const [disabledSubmit, setDisabledSubmit] = useState(true);
 
-  const [input, setInput] = useState({
-    title: "",
-    summary: "",
-    spoonacularScore: "",
-    healthScore: "",
-    instructions: "",
-  });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  let errorsMsg = {};
-  const validate = ({ title, summary, spoonacularScore, healthScore, instructions }) => {
-    if (!title) errorsMsg.title = "Title is required ";
-    else if (!summary) errorsMsg.summary = "Summary es required";
-    else if (spoonacularScore < 1 || spoonacularScore > 10)
-      errorsMsg.spoonacularScore = "The score has to be a number between 1 and 10 ";
-    else if (healthScore < 1 || healthScore > 100)
-      errorsMsg.healthScore = "The Health Score has to be a number between 1 and 100";
-    else if (!instructions) errorsMsg.instructions = "Instructions es required";
+  const {
+    summary,
+    summaryValid,
+    spoonacularScore,
+    spoonacularScoreValid,
+    healthScore,
+    healthScoreValid,
+    title,
+    titleValid,
+    steps,
+    stepsValid,
+    onInputChange,
+    isFormValid,
+    onResetForm,
+  } = useForm(
+    { title: "", summary: "", spoonacularScore: "", healthScore: "", steps: "" },
+    formValidations
+  );
 
-    return errorsMsg;
-  };
-
-  const handleInputChange = ({ target }) => {
-    setInput({
-      ...input,
-      [target.name]: target.value,
-    });
-    setErrors(
-      validate({
-        ...input,
-        [target.name]: target.value,
-      })
-    );
-  };
-
-  useEffect(() => {
-    if (
-      input.summary &&
-      input.title &&
-      input.instructions &&
-      input.spoonacularScore &&
-      input.healthScore
-    ) {
-      setDisabledSubmit(false);
-    } else {
-      setDisabledSubmit(true);
-    }
-  }, [input]);
-
-  const handleSubmit = e => {
+  const onSubmit = e => {
     e.preventDefault();
-    if (
-      !input.summary ||
-      !input.title ||
-      !input.instructions ||
-      !input.spoonacularScore ||
-      !input.healthScore ||
-      input.diet.length === 0
-    )
-      return;
-    if (Object.keys(errors).length === 0) {
-      dispatch(postRecipe(input));
-      MySwal.fire({
-        title: <p>Hello World</p>,
-        footer: "Copyright 2018",
-        didOpen: () => {
-          MySwal.clickConfirm();
-        },
-      }).then(() => {
-        return MySwal.fire("Recipe successfully created!", "", "success");
-      });
-      navigate("/home");
-    } else {
-      MySwal.fire({
-        didOpen: () => {
-          MySwal.clickConfirm();
-        },
-      }).then(() => {
-        return MySwal.fire("UPS!", "There can be no empty fields! ", "error");
-      });
-    }
+    setFormSubmitted(true);
+    if (!isFormValid) return;
+    const dataToSubmit = {
+      summary,
+      title,
+      spoonacularScore: +spoonacularScore,
+      healthScore: +healthScore,
+      steps,
+    };
+    dispatch(postRecipe(dataToSubmit));
+    onResetForm();
+    Swal.fire("Recipe created successfully!", "", "success");
+    navigate("/home");
   };
 
   return (
@@ -105,17 +65,23 @@ export const CreateRecipe = () => {
           </Link>
         </div>
         <h1 className='form-title'>Create your recipe</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <div>
             <input
               placeholder='Title...'
               className='form-input'
               type='text'
               name='title'
-              value={input.title}
-              onChange={handleInputChange}
+              value={title}
+              onChange={onInputChange}
             />
-            {errors.title && <p className='error'>{errors.title} </p>}
+            {!!titleValid && formSubmitted && (
+              <p className='error'>
+                {" "}
+                <i className='fas fa-light fa-circle-exclamation'></i>
+                {titleValid}{" "}
+              </p>
+            )}
           </div>
           <div>
             <input
@@ -123,10 +89,16 @@ export const CreateRecipe = () => {
               className='form-input'
               type='text'
               name='summary'
-              value={input.summary}
-              onChange={handleInputChange}
+              value={summary}
+              onChange={onInputChange}
             />
-            {errors.summary && <p className='error'>{errors.summary} </p>}
+            {!!summaryValid && formSubmitted && (
+              <p className='error'>
+                {" "}
+                <i className='fas fa-light fa-circle-exclamation'></i>
+                {summaryValid}{" "}
+              </p>
+            )}
           </div>
           <div>
             <input
@@ -134,10 +106,16 @@ export const CreateRecipe = () => {
               className='form-input'
               type='number'
               name='spoonacularScore'
-              value={input.spoonacularScore}
-              onChange={handleInputChange}
+              value={spoonacularScore}
+              onChange={onInputChange}
             />
-            {errors.spoonacularScore && <p className='error'>{errors.spoonacularScore} </p>}
+            {!!spoonacularScoreValid && formSubmitted && (
+              <p className='error'>
+                {" "}
+                <i className='fas fa-light fa-circle-exclamation'></i>
+                {spoonacularScoreValid}{" "}
+              </p>
+            )}
           </div>
           <div>
             <input
@@ -145,24 +123,36 @@ export const CreateRecipe = () => {
               className='form-input'
               type='number'
               name='healthScore'
-              value={input.healthScore}
-              onChange={handleInputChange}
+              value={healthScore}
+              onChange={onInputChange}
             />
-            {errors.healthScore && <p className='error'>{errors.healthScore} </p>}
+            {!!healthScoreValid && formSubmitted && (
+              <p className='error'>
+                {" "}
+                <i className='fas fa-light fa-circle-exclamation'></i>
+                {healthScoreValid}{" "}
+              </p>
+            )}
           </div>
           <div>
             <input
               placeholder='Steps...'
               className='form-input'
               type='text'
-              name='instructions'
-              value={input.instructions}
-              onChange={handleInputChange}
+              name='steps'
+              value={steps}
+              onChange={onInputChange}
             />
-            {errors.instructions && <p className='error'>{errors.instructions} </p>}
+            {stepsValid && formSubmitted && (
+              <p className='error'>
+                {" "}
+                <i className='fas fa-light fa-circle-exclamation'></i>
+                {stepsValid}{" "}
+              </p>
+            )}
           </div>
 
-          <button disabled={disabledSubmit} className='btn-create' type='submit'>
+          <button className='btn-create' type='submit'>
             Create Recipe
           </button>
         </form>

@@ -14,12 +14,8 @@ const RecipesSchema = new Schema({
     type: Number,
     required: true,
   },
-  instructions: {
+  steps: {
     type: String,
-    required: true,
-  },
-  diets: {
-    type: [String],
     required: true,
   },
   user: {
