@@ -4,7 +4,6 @@ const initialState = {
   recipes: [],
   allRecipes: [],
   detail: {},
-  diets: [],
   error: "",
 };
 

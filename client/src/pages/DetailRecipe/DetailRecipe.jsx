@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetails, clearDetailState } from "../../Redux/slice";
+import defaultImage from "../../assets/alimentos.jpg";
 import Spinner from "../../Components/Spinner/Spinner.jsx";
 import "./DetailRecipe.css";
 
@@ -21,50 +22,43 @@ export const DetailRecipe = () => {
     return <Spinner />;
   }
 
-  const { healthScore, servings, diets, steps, summary, title, instructions, extendedIngredients } =
-    recipe;
+  const { steps, summary, image, title, extendedIngredients } = recipe;
 
   return (
-    <>
-      <div className='d-container'></div>
-      <div className='detail-container'>
-        <div className='title-cont'>
-          <h2 className='detail-title'> {title}</h2>
-        </div>
+    <div className='detail-container'>
+      <h2 className='detail-title'> {title}</h2>
+      <div className='detail-header'>
+        <img src={image ? image : defaultImage} alt={title} />
         <div
           className='detail-sum'
           dangerouslySetInnerHTML={{ __html: `<b>Summary:</b> ${summary}` }}
         />
-        <p>{instructions}</p>
-        <div className='subtitle-cont'>
-          <h5 className='detail-subtitle'>
-            <i className='icon fas fa-heartbeat'></i> {healthScore + " Pts."}
-          </h5>
-          <h5 className='detail-subtitle'>
-            <i className='icon fas fa-heartbeat'></i> {servings}
-          </h5>
-          <h5 className='detail-subtitle'>
-            <i className='icon fas fa-balance-scale'></i> {diets?.map(name => name + " ")}
-          </h5>
-        </div>
-        <Link to='/home'>
-          <button className='btn-back'>Go Back</button>
-        </Link>
       </div>
-      <div className='steps'>
+      <h2 className='detail-title'> Ingredients</h2>
+      <div className='ingredients-container'>
+        {extendedIngredients?.map(({ image, original, originalName }) => (
+          <div key={originalName} className='ingredients'>
+            <p>{original.replace(originalName, "")}</p>
+            <img
+              src={`https://spoonacular.com/cdn/ingredients_100x100/${image}`}
+              alt={originalName}
+            />
+            <p>{originalName.substring(0, 15)}</p>
+          </div>
+        ))}
+      </div>
+      <h2 className='detail-title'>Steps</h2>
+      <div className='steps-container'>
         {Array.isArray(steps) &&
           steps?.map(({ step, number }) => (
-            <>
-              <span key={number}>
-                <i className='fa-sharp fa-solid fa-thumbtack'></i> {number}:
-              </span>
+            <div key={step} className='timeline-item' date-is={number}>
               <p>{step}</p>
-            </>
+            </div>
           ))}
       </div>
-      {extendedIngredients?.map(({ image, originalName }) => (
-        <img src={`https://spoonacular.com/cdn/ingredients_100x100/${image}`} alt={originalName} />
-      ))}
-    </>
+      <Link to='/home'>
+        <button className='btn-back'>Back</button>
+      </Link>
+    </div>
   );
 };
