@@ -1,9 +1,11 @@
 const axios = require("axios");
 
+const { API_BASE_URL, API_KEY } = process.env;
+
 const getRecipesFromApi = async () => {
   try {
     const response = await axios(
-      `${process.env.API_BASE_URL}/complexSearch?apiKey=${process.env.API_KEY}&number=100&addRecipeInformation=true`
+      `${API_BASE_URL}/complexSearch?apiKey=${API_KEY}&number=100&addRecipeInformation=true`
     );
 
     const recipesApi = response.data.results.map(
@@ -27,9 +29,7 @@ const getRecipesFromApi = async () => {
 };
 
 const getRecipeById = async recipeId => {
-  const response = await axios(
-    `${process.env.API_BASE_URL}/${recipeId}/information?apiKey=${process.env.API_KEY}`
-  );
+  const response = await axios(`${API_BASE_URL}/${recipeId}/information?apiKey=${API_KEY}`);
 
   const {
     id,
