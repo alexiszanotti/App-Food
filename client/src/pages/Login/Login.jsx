@@ -13,7 +13,7 @@ const formValidations = {
 
 export const Login = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const { email, password, onInputChange, isFormValid, emailValid, passwordValid } = useForm(
+  const { email, password, onInputChange, emailValid, passwordValid } = useForm(
     {
       email: "",
       password: "",
@@ -31,8 +31,10 @@ export const Login = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (!isFormValid) return;
-    dispatch(startLogin({ email, password }));
+    if (!emailValid && !passwordValid){
+
+      dispatch(startLogin({ email, password }));
+    }
     setFormSubmitted(true);
   };
 
