@@ -42,8 +42,7 @@ export const recipeSlice = createSlice({
     },
 
     orderByRank: (state, { payload }) => {
-      console.log(payload);
-      const arrSorted1 =
+      const arrSorted =
         payload === "score"
           ? state.recipes.sort((a, b) => {
               if (a.healthScore > b.healthScore) {
@@ -64,7 +63,7 @@ export const recipeSlice = createSlice({
               return 0;
             });
 
-      state.recipes = arrSorted1;
+      state.recipes = arrSorted;
     },
 
     searchByName: (state, { payload }) => {

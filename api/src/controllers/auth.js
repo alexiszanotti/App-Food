@@ -49,7 +49,7 @@ const loginUser = async (req, res = response) => {
 
     //Validate exist user
     if (!user) {
-      return res.status(400).json({
+      return res.status(401).json({
         ok: false,
         msg: "bad credentials",
       });
@@ -59,7 +59,7 @@ const loginUser = async (req, res = response) => {
     const validPassword = bcrypt.compareSync(password, user.password);
 
     if (!validPassword) {
-      return res.status(400).json({
+      return res.status(401).json({
         ok: false,
         msg: "bad credentials",
       });
