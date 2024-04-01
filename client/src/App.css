@@ -37,14 +37,15 @@
   background-color: #222;
   color: #fff;
   border-radius: 0.5rem;
-  padding: 0.5rem 0;
+  padding: 0.7rem 0;
   font-size: 1rem;
   font-family: "Cabin", sans-serif;
   margin-top: 1rem;
+  border: none;
+  transition: all 0.3s;
 }
 .form-auth-container button:hover {
-  background-color: #666;
-  border-color: #666;
+  background-color: #444;
   cursor: pointer;
 }
 

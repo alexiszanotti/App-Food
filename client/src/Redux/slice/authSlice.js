@@ -28,10 +28,6 @@ export const authSlice = createSlice({
     },
     checkingCredentials: state => {
       state.status = "checking";
-      state.uid = null;
-      state.email = null;
-      state.name = null;
-      state.errorMessage = null;
     },
     clearErrorMEssage: state => {
       state.errorMessage = undefined;

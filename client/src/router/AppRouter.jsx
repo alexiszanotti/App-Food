@@ -8,7 +8,8 @@ export const AppRouter = () => {
 
   useEffect(() => {
     checkAuthToken();
-  }, [checkAuthToken]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (status === "checking") {
     return <Spinner />;
