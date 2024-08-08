@@ -10,6 +10,7 @@
   align-items: center;
   margin-bottom: 1rem;
   position: fixed;
+  z-index: 5;
 }
 
 .container-nav .btn-logut {
@@ -34,6 +35,9 @@
 .input-search {
   border: none;
   background: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .button-search {
