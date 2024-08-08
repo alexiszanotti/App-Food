@@ -98,13 +98,12 @@ const getRecipe = async (req, res = response) => {
         detailRecipe,
       });
     }
-
-    return res.status(404).json({
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
       ok: false,
       msg: "Recipe not found",
     });
-  } catch (error) {
-    console.log(error);
   }
 };
 
