@@ -71,7 +71,7 @@ export const recipeSlice = createSlice({
     },
 
     getDetails: (state, { payload }) => {
-      state.detail = payload.detailRecipe;
+      state.detail = payload;
     },
 
     postRecipes: state => {

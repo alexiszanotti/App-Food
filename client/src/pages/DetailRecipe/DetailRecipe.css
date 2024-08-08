@@ -126,6 +126,12 @@ p {
   align-items: center;
   height: 8rem;
 }
+
 .ingredients img {
   min-height: 4rem;
+}
+
+.not-found {
+  text-align: center;
+  margin: 2rem 0;
 }

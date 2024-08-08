@@ -46,6 +46,7 @@ export const fetchDetails = idRecipe => async dispatch => {
     dispatch(getDetails(data));
   } catch (error) {
     console.log(error);
+    dispatch(getDetails({ ok: false, msg: error.response.data.msg }));
   }
 };
 

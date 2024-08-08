@@ -22,7 +22,20 @@ export const DetailRecipe = () => {
     return <Spinner />;
   }
 
-  const { steps, summary, image, title, extendedIngredients } = recipe;
+  if (!recipe.ok) {
+    return (
+      <>
+        <h1 className='not-found'>{recipe.msg}</h1>
+        <Link to='/home'>
+          <button className='btn-back'>Back</button>
+        </Link>
+      </>
+    );
+  }
+
+  const { detailRecipe } = recipe;
+
+  const { steps, summary, image, title, extendedIngredients } = detailRecipe;
 
   return (
     <div className='detail-container'>
