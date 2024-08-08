@@ -24,7 +24,7 @@ export default function Paginado({ recipesPerPage, setCurrentPage, currentPage, 
   };
 
   return (
-    <nav>
+    <nav className='container'>
       <ul className='paginado'>
         <button
           onClick={() => prevPage(currentPage)}

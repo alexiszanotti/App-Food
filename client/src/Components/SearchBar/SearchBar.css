@@ -9,6 +9,7 @@
   font-family: "Cabin", sans-serif;
   align-items: center;
   margin-bottom: 1rem;
+  position: fixed;
 }
 
 .container-nav .btn-logut {
@@ -32,7 +33,7 @@
 
 .input-search {
   border: none;
-  /* background: transparent; */
+  background: transparent;
 }
 
 .button-search {
